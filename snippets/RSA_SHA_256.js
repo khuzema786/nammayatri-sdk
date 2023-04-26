@@ -1,18 +1,4 @@
-// block:start:create-signature-payload
 const crypto = require('crypto');
-
-const privateKey = `-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----`
-
-const createSignature = (payload) => {
-    const sign = crypto.createSign('RSA-SHA256');
-    sign.update(payload);
-    const signature = sign.sign(privateKey, 'base64');
-    
-    return {
-        authData: data,
-        signature: signature
-    }
-}
 
 const data = JSON.stringify({
     "mobileNumber": "9642429378",
@@ -21,5 +7,20 @@ const data = JSON.stringify({
     "timestamp": "2023-04-13T07:28:40+00:00"
 });
 
-createSignature(data);
-// block:end:create-signature-payload
+// block:start:read-private-key
+const privateKey = fs.readFileSync(__dirname + "/private-key.pem", "utf8");
+// block:end:read-private-key
+
+// block:start:create-signature
+const sign = crypto.createSign('RSA-SHA256');
+sign.update(data);
+// block:end:create-signature
+
+// block:start:base64
+const signature = sign.sign(privateKey, 'base64');
+// block:end:base64
+
+const signatureAuthData = {
+    authData: data,
+    signature: signature
+}
