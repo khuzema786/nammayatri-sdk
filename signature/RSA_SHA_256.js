@@ -1,17 +1,22 @@
 const crypto = require('crypto');
 const readline = require('readline');
+const fs = require("fs");
 
-let { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-    modulusLength: 2048,
-    publicKeyEncoding: {
-        type: 'spki',
-        format: 'pem'
-    },
-    privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'pem'
-    }
-});
+// let { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
+//     modulusLength: 2048,
+//     publicKeyEncoding: {
+//         type: 'spki',
+//         format: 'pem'
+//     },
+//     privateKeyEncoding: {
+//         type: 'pkcs8',
+//         format: 'pem'
+//     }
+// });
+
+const privateKey = fs.readFileSync(__dirname + "/private-key.pem", "utf8");
+
+const publicKey = fs.readFileSync(__dirname + "/public-key.pem", "utf8");
 
 console.log(privateKey, publicKey);
 
@@ -46,11 +51,10 @@ new Promise(resolve => rl.question("Click enter to proceed ahead.", ans => {
         method: 'POST',
         body: data,
         headers: {
-			'x-sdk-authorization': signature,
+            'x-sdk-authorization': signature,
             'Content-Type': 'application/json;charset=utf-8'
-		}
+        }
     })
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+        .then((response) => response.json())
+        .then((json) => console.log(json));
 })
-  
