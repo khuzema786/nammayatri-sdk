@@ -1,3 +1,4 @@
+// block:start:create-signature-payload
 const crypto = require('crypto');
 
 const privateKey = `-----BEGIN PRIVATE KEY-----...-----END PRIVATE KEY-----`
@@ -21,3 +22,4 @@ const data = JSON.stringify({
 });
 
 createSignature(data);
+// block:end:create-signature-payload

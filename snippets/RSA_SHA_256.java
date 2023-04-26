@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+// block:start:create-signature-payload
 import java.security.*;
 import java.util.HashMap;
 
@@ -51,3 +52,4 @@ public class SignatureUtil {
         return keyPair.getPrivate();
     }
 }
+// block:end:create-signature-payload
