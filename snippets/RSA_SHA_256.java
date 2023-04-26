@@ -1,3 +1,4 @@
+// block:start:create-signature-payload
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
@@ -7,7 +8,7 @@ import org.json.JSONObject;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-// block:start:create-signature-payload
+
 import java.security.*;
 import java.util.HashMap;
 
