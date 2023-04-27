@@ -1,10 +1,13 @@
 package in.juspay.mobilitysdk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
@@ -33,7 +36,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // block:start:back-press
+    @Override
+    public void onBackPressed() {
+        if (hyperService != null && !hyperService.onBackPressed()) {
+            super.onBackPressed();
+        }
+    }
+    // block:end:back-press
 
+    // block:start:on-activity-result
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        hyperService.onActivityResult(requestCode,resultCode,data);
+    }
+    // block:end:on-activity-result
+
+    // block:start:on-permission-result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        hyperService.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+    // block:end:on-permission-result
 
     private void initMobilitySDK() {
         // block:start:initiate-service
