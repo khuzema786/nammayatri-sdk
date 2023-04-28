@@ -48,7 +48,7 @@ dependencies {
 
 //block:start:add-sdk-plugin-implementation
 hyperSdkPlugin {
-    clientId = "nammayatri"
+    clientId = "<CLIENT_ID>"
     sdkVersion = "2.1.11"
 }
 //block:end:add-sdk-plugin-implementation

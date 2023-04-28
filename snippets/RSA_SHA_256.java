@@ -15,7 +15,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public class SignatureUtil {
     public static void main(String ...args) {
-        JSONObject data = new JSONObject("{\"mobileNumber\":\"9819xxxx90\",\"mobileCountryCode\":\"+91\",\"merchantId\":\"NAMMA_YATRI\",\"timestamp\":\"2023-04-13T07:28:40+00:00\"}");
+        JSONObject data = new JSONObject("{\"mobileNumber\":\"9819xxxx90\",\"mobileCountryCode\":\"+91\",\"merchantId\":\"<MERCHANT_ID>\",\"timestamp\":\"2023-04-13T07:28:40+00:00\"}");
         // block:start:read-private-key
         String filePath = "/<absolute-path-to-folder-containing-pem-file>/private-key.pem";
         // block:end:read-private-key

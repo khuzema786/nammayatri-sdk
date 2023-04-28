@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
         JSONObject innerPayload = new JSONObject();
         JSONObject initiatePayload = new JSONObject();
         try {
-            String key = "in.juspay.hyperpay";
+            String key = "in.juspay.mobility";
             initiatePayload.put("requestId", UUID.randomUUID());
             initiatePayload.put("service", key);
-            innerPayload.put("clientId", "nammayatri");
-            innerPayload.put("merchantId", "nammayatri");
+            innerPayload.put("clientId", "<client_id>");
+            innerPayload.put("merchantId", "<client_id>");
             innerPayload.put("action", "initiate");
             innerPayload.put("service", key);
             innerPayload.put(PaymentConstants.ENV, "production");
@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
             String key = "in.juspay.mobility";
             initiatePayload.put("requestId", UUID.randomUUID());
             initiatePayload.put("service", key);
-            innerPayload.put("clientId", "nammayatri");
-            innerPayload.put("merchantId", "nammayatri");
+            innerPayload.put("clientId", "<client_id>");
+            innerPayload.put("merchantId", "<client_id>");
             innerPayload.put("action", "initiate");
             innerPayload.put("service", key);
             innerPayload.put(PaymentConstants.ENV, "production");
