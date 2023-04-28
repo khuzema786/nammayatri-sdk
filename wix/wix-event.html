@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css">
 	<link rel="stylesheet" href="http://themes.audemedia.com/html/goodgrowth/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/owl.carousel.min.js"></script>
 </head>
@@ -12,10 +13,15 @@
 <body onload="ready()">
 	<!-- TESTIMONIALS -->
 	<section class="testimonials">
-		<div class="container">
+		<div class="container main-content">
 			<div class="row">
 				<div class="col-sm-12">
 					<div id="customers-testimonials" class="owl-carousel">
+					</div>
+					<div class="owl-theme">
+						<div class="owl-controls">
+							<div class="custom-nav owl-nav"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -44,11 +50,22 @@
 			font-weight: 300;
 		}
 
+		@media only screen and (max-width: 768px) {
+			#customers-testimonials .shadow-effect p {
+				font-size: 14px !important;
+			}
+
+			#customers-testimonials .item {
+				padding: 50px 25px 0px 25px !important;
+				margin-bottom: 0px !important;
+			}
+		}
+
 		.testimonial-name {
 			margin: -17px auto 0;
 			display: table;
 			width: auto;
-			background: linear-gradient(45deg, #191158, #1b68d9);;
+			background: linear-gradient(45deg, #191158, #1b68d9);
 			padding: 9px 35px;
 			border-radius: 12px;
 			text-align: center;
@@ -108,9 +125,58 @@
 			transition: all 250ms ease-out 0s;
 			width: 20px;
 		}
+
+		.main-content {
+			position: relative;
+		}
+
+		.main-content .owl-theme .custom-nav {
+			position: absolute;
+			top: 20%;
+			left: 0;
+			right: 0;
+		}
+
+		.main-content .owl-theme .custom-nav .owl-prev,
+		.main-content .owl-theme .custom-nav .owl-next {
+			position: absolute;
+			top: 100px;
+			color: inherit;
+			background: none;
+			border: none;
+			border-radius: 100%;
+			padding: 8px 17px;
+			z-index: 100;
+		}
+
+		.main-content .owl-theme .custom-nav .owl-prev:hover,
+		.main-content .owl-theme .custom-nav .owl-next:hover {
+			background: white;
+			cursor: pointer;
+		}
+
+		.main-content .owl-theme .custom-nav .owl-prev i,
+		.main-content .owl-theme .custom-nav .owl-next i {
+			font-size: 2.5rem;
+			color: #cecece;
+		}
+
+		.main-content .owl-theme .custom-nav .owl-prev:hover i,
+		.main-content .owl-theme .custom-nav .owl-next:hover i {
+			font-size: 2.5rem;
+			color: #191158;
+		}
+
+		.main-content .owl-theme .custom-nav .owl-prev {
+			left: 0;
+		}
+
+		.main-content .owl-theme .custom-nav .owl-next {
+			right: 0;
+		}
 	</style>
 	<script>
-		function getWixImageSrc (image) {
+		function getWixImageSrc(image) {
 			image = image.replace("wix:image://v1/", "https://static.wixstatic.com/media/")
 			image = image.replace(/~mv2\.jpg\/.*/, "~mv2.jpg")
 			image = image.replace(/~mv2\.png\/.*/, "~mv2.png")
@@ -140,12 +206,24 @@
 					items: 3,
 					margin: 0,
 					autoplay: true,
+					autoplayHoverPause: true,
+					nav: true,
+					navText: [
+						'<i class="fa fa-angle-left" aria-hidden="true"></i>',
+						'<i class="fa fa-angle-right" aria-hidden="true"></i>'
+					],
+					navContainer: '.main-content .custom-nav',
+					touchDrag: true,
 					dots: true,
-					autoplayTimeout: 2000,
+					autoplayTimeout: 3000,
 					smartSpeed: 450,
 					responsive: {
 						0: {
-							items: 1
+							items: 1,
+							nav: false,
+							dots: false,
+							navText: [],
+							navContainer: ''
 						},
 						768: {
 							items: 2
@@ -160,18 +238,18 @@
 		function ready() {
 			window.parent.postMessage({ "type": "ready" }, "*")
 		}
-		var event = {
-			data : [{
-				"fullName": "Mike",
-				"profile": "wix:image://v1/1173a4_c038d1b832574acc88c7d3f992cb64c8~mv2.jpg/pexels-pixabay-220453.jpg#originWidth=3476&originHeight=5214",
-				"writeTestimonial": "\"I have been using this trading website for a few months now and I must say, it has exceeded my expectations. The user interface is user-friendly and the customer support is amazing. I highly recommend this website for anyone looking for a reliable trading platform.\""
-			}, {
-				"fullName": "Mikey",
-				"profile": "wix:image://v1/1173a4_c038d1b832574acc88c7d3f992cb64c8~mv2.jpg/pexels-pixabay-220453.jpg#originWidth=3476&originHeight=5214",
-				"writeTestimonial": "\"I have been using this trading website for a few months now and I must say, it has exceeded my expectations. The user interface is user-friendly and the customer support is amazing. I highly recommend this website for anyone looking for a reliable trading platform.\""
-			}]
-		}
-		window.onmessage(event);
+		// var event = {
+		// 	data: [{
+		// 		"fullName": "Mike",
+		// 		"profile": "wix:image://v1/1173a4_c038d1b832574acc88c7d3f992cb64c8~mv2.jpg/pexels-pixabay-220453.jpg#originWidth=3476&originHeight=5214",
+		// 		"writeTestimonial": "\"I have been using this trading website for a few months now and I must say, it has exceeded my expectations. The user interface is user-friendly and the customer support is amazing. I highly recommend this website for anyone looking for a reliable trading platform.\""
+		// 	}, {
+		// 		"fullName": "Mikey",
+		// 		"profile": "wix:image://v1/1173a4_c038d1b832574acc88c7d3f992cb64c8~mv2.jpg/pexels-pixabay-220453.jpg#originWidth=3476&originHeight=5214",
+		// 		"writeTestimonial": "\"I have been using this trading website for a few months now and I must say, it has exceeded my expectations. The user interface is user-friendly and the customer support is amazing. I highly recommend this website for anyone looking for a reliable trading platform.\""
+		// 	}]
+		// }
+		// window.onmessage(event);
 	</script>
 </body>
 

@@ -1,14 +1,13 @@
-package in.juspay.mobilitysdk;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+package in.juspay.demosdk;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +20,7 @@ import in.juspay.hypersdk.ui.HyperPaymentsCallbackAdapter;
 import in.juspay.services.HyperServices;
 
 public class MainActivity extends AppCompatActivity {
+
     private HyperServices hyperService;
 
     @Override
@@ -28,12 +28,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initMobilitySDK();
-        Button button = findViewById(R.id.start);
-        button.setOnClickListener(view -> {
-            // block:start:process-call
-            hyperService.process(getProcessPayload());
-            // block:end:process-call
-        });
     }
 
     // block:start:back-press
@@ -68,12 +62,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEvent(JSONObject jsonObject, JuspayResponseHandler juspayResponseHandler) {
                 // handle the whitelisted event
-                try {
-                    if (jsonObject.get("event") == "initiate_result") {
-                        Log.i("MobilitySDK", "initiate successful");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (jsonObject.optString("event").equals("initiate_result")) {
+                    Log.i("MobilitySDK", "initiate successful");
+                    hyperService.process(getProcessPayload());
                 }
             }
         });
@@ -85,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
         JSONObject innerPayload = new JSONObject();
         JSONObject initiatePayload = new JSONObject();
         try {
-            String key = "in.juspay.mobility";
+            String key = "in.yatri.consumer";
             initiatePayload.put("requestId", UUID.randomUUID());
             initiatePayload.put("service", key);
-            innerPayload.put("clientId", "<client_id>");
-            innerPayload.put("merchantId", "<client_id>");
+            innerPayload.put("clientId", "mobility-paytm");
+            innerPayload.put("merchantId", "mobility-paytm");
             innerPayload.put("action", "initiate");
             innerPayload.put("service", key);
             innerPayload.put(PaymentConstants.ENV, "production");
@@ -109,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         String authData = "{\"mobileNumber\":\"9819xxxx90\",\"mobileCountryCode\":\"+91\",\"merchantId\":\"<MERCHANT_ID>\",\"timestamp\":\"2023-04-13T07:28:40+00:00\"}";
         String signature = "<SIGNATURE_KEY>";
         try {
-            String key = "in.juspay.mobility";
+            String key = "in.yatri.consumer";
             initiatePayload.put("requestId", UUID.randomUUID());
             initiatePayload.put("service", key);
             innerPayload.put("clientId", "<client_id>");

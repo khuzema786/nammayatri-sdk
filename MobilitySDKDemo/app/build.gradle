@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "in.juspay.mobilitysdk"
-        minSdk 21
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -43,12 +43,12 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'in.juspay:mobilitycustomer:2.1.12'
+    implementation 'in.juspay:mobilitycustomer:2.1.13-nammayatri.09'
 }
 
 //block:start:add-sdk-plugin-implementation
 hyperSdkPlugin {
     clientId = "<CLIENT_ID>"
-    sdkVersion = "2.1.11"
+    sdkVersion = "2.1.13-nammayatri.09"
 }
 //block:end:add-sdk-plugin-implementation
