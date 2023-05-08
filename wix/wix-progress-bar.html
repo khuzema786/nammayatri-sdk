@@ -18,7 +18,6 @@
     jQuery(document).ready(function ($) {
       window.onmessage = function (event) {
         if (event.data.type === "data") {
-          let container = document.getElementById("container");
           let ulContainer = document.getElementById("ulId");
           let alreadyUpgraded = true;
           ulContainer.innerHTML = event.data.plans
@@ -26,15 +25,18 @@
               if (item.isCurrent) alreadyUpgraded = false;
               return event.data.plans.length - 1 === idx
                 ? `<li id="step-${idx + 1}" class=${item.isCurrent ? "is-active" : ""
-                }>${item.name}</li>`
+                }>${item.name}<br/>${item.basePrice}</li>`
                 : `<li id="step-${idx + 1}" class=${item.isCurrent ? "is-active" : ""
                 }>
-                          ${item.name}
+                          ${item.name}<br/>
+                          ${item.basePrice}
                 <div class="progress-bar progress-bar--success">
                 <div class="progress-bar__bar" ${alreadyUpgraded
                   ? 'style="transform:translateX(100%)"'
-                  : item.isCurrent ? 'style="transform:translateX(80%)"' : ""
+                  : item.isCurrent ? `style="transform:translateX(${((event.data.investment - item.basePrice) * 100) / (event.data.plans[idx + 1].basePrice - item.basePrice)}%)"` : ""
                 }></div>
+                </div>
+                ${item.isCurrent ? `<div class="progress-bar__investment" style="transform:translateX(${((event.data.investment - item.basePrice) * 100) / (event.data.plans[idx + 1].basePrice - item.basePrice)}%)"><span>${event.data.investment}</span></div>` : ''}
                     </li>
                   `;
             })
@@ -184,7 +186,7 @@
       overflow: hidden;
       position: absolute;
       left: 50%;
-      bottom: calc(50% + 7px);
+      bottom: calc(50% + 15px);
       width: 100%;
       z-index: -1;
     }
@@ -203,6 +205,42 @@
       right: 0;
       top: 0;
       transition: all 500ms ease-out;
+    }
+
+    .progress-bar__investment {
+      background-color: none;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: all 500ms ease-out;
+    }
+
+    .progress-bar__investment span::after {
+      content: " ";
+      position: absolute;
+      top: 100%; /* At the bottom of the tooltip */
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #027f00 transparent transparent transparent;
+    }
+
+    .progress-bar__investment span {
+      width: 120px;
+      background-color: #027f00;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      width: 82px;
+      bottom: 81%;
+      left: 50%;
+      margin-left: -42px;
+      position: absolute;
+      z-index: 1;
     }
   </style>
 </body>
