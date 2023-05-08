@@ -23,20 +23,20 @@
           ulContainer.innerHTML = event.data.plans
             .map((item, idx) => {
               if (item.isCurrent) alreadyUpgraded = false;
+              const translatePercent = event.data.plans.length - 1 !== idx ? ((event.data.investment - item.basePrice) * 100) / (event.data.plans[idx + 1].basePrice - item.basePrice) : 0;
               return event.data.plans.length - 1 === idx
                 ? `<li id="step-${idx + 1}" class=${item.isCurrent ? "is-active" : ""
-                }>${item.name}<br/>${item.basePrice}</li>`
+                }>${item.name}<br/>£ ${item.basePrice.toLocaleString("en-US")}</li>`
                 : `<li id="step-${idx + 1}" class=${item.isCurrent ? "is-active" : ""
                 }>
-                          ${item.name}<br/>
-                          ${item.basePrice}
+                          ${item.name}<br/>£ ${item.basePrice.toLocaleString("en-US")}
                 <div class="progress-bar progress-bar--success">
                 <div class="progress-bar__bar" ${alreadyUpgraded
                   ? 'style="transform:translateX(100%)"'
-                  : item.isCurrent ? `style="transform:translateX(${((event.data.investment - item.basePrice) * 100) / (event.data.plans[idx + 1].basePrice - item.basePrice)}%)"` : ""
+                  : item.isCurrent ? `style="transform:translateX(${translatePercent}%)"` : ""
                 }></div>
                 </div>
-                ${item.isCurrent ? `<div class="progress-bar__investment" style="transform:translateX(${((event.data.investment - item.basePrice) * 100) / (event.data.plans[idx + 1].basePrice - item.basePrice)}%)"><span>${event.data.investment}</span></div>` : ''}
+                ${item.isCurrent ? `<div class="progress-bar__investment" style="transform:translateX(${translatePercent}%)"><span ${translatePercent > 90 || translatePercent < 10 ? 'style="bottom:100%"' : ''}>£ ${event.data.investment.toLocaleString("en-US")}</span></div>` : ''}
                     </li>
                   `;
             })
@@ -47,7 +47,7 @@
       var event = {
         data: {
           type: "data",
-          investment: 8000,
+          investment: 10000,
           plans: [
             {
               name: "Basic",
@@ -95,7 +95,7 @@
       display: table;
       table-layout: fixed;
       width: 100%;
-      padding: 0;
+      padding: 20px 0;
     }
 
     .multi-steps>li {
