@@ -22,12 +22,12 @@
           let alreadyUpgraded = true;
           ulContainer.innerHTML = event.data.plans
             .map((item, idx) => {
-              if (item.isCurrent) alreadyUpgraded = false;
+              if (event.data.investment < item.basePrice || item.isCurrent) alreadyUpgraded = false;
               const translatePercent = event.data.plans.length - 1 !== idx ? ((event.data.investment - item.basePrice) * 100) / (event.data.plans[idx + 1].basePrice - item.basePrice) : 0;
               return event.data.plans.length - 1 === idx
-                ? `<li id="step-${idx + 1}" class=${item.isCurrent ? "is-active" : ""
+                ? `<li id="step-${idx + 1}" class=${(idx === 0 && event.data.investment < item.basePrice) || item.isCurrent ? "is-active" : ""
                 }>${item.name}<br/>£ ${item.basePrice.toLocaleString("en-US")}</li>`
-                : `<li id="step-${idx + 1}" class=${item.isCurrent ? "is-active" : ""
+                : `<li id="step-${idx + 1}" class=${(idx === 0 && event.data.investment < item.basePrice) || item.isCurrent ? "is-active" : ""
                 }>
                           ${item.name}<br/>£ ${item.basePrice.toLocaleString("en-US")}
                 <div class="progress-bar progress-bar--success">
@@ -47,7 +47,7 @@
       var event = {
         data: {
           type: "data",
-          investment: 10000,
+          investment: 0,
           plans: [
             {
               name: "Basic",
@@ -62,7 +62,7 @@
             {
               name: "Bronze",
               basePrice: "7000",
-              isCurrent: true,
+              isCurrent: false,
             },
             {
               name: "Platinum",
