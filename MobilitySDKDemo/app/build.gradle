@@ -1,15 +1,7 @@
 plugins {
     id 'com.android.application'
-    // block:start:apply-plugin
-    id 'hypersdk.plugin'
-    // block:end:apply-plugin
 }
 
-repositories {
-    maven {
-        url "https://maven.juspay.in/jp-build-packages/hyper-sdk/"
-    }
-}
 android {
     compileSdk 33
 
@@ -43,12 +35,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'in.juspay:mobilitycustomer:2.1.13-nammayatri.09'
+    //block:start:add-sdk-plugin-implementation
+    implementation 'in.juspay:mobilitycustomer:2.1.13-nammayatri.13'
+    implementation 'in.juspay:hypersdk:2.1.13-nammayatri.13'
+    //block:end:add-sdk-plugin-implementation
 }
-
-//block:start:add-sdk-plugin-implementation
-hyperSdkPlugin {
-    clientId = "<CLIENT_ID>"
-    sdkVersion = "2.1.13-nammayatri.09"
-}
-//block:end:add-sdk-plugin-implementation
