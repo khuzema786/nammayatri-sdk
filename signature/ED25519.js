@@ -17,7 +17,7 @@ const { privateKey, publicKey } = crypto.generateKeyPairSync('ed25519', {
 
 console.log(privateKey, publicKey);
 
-let data = JSON.stringify({"mobileNumber":"9642429378","mobileCountryCode":"+91","merchantId":"NAMMA_YATRI"});
+let data = JSON.stringify({"mobileNumber":"9642429378","mobileCountryCode":"+91","merchantId":"<MERCHNAT_ID>"});
 let hasheddata = crypto.createHash("blake2b512").update(Buffer.from(data)).digest("base64");
 console.log(hasheddata);
 

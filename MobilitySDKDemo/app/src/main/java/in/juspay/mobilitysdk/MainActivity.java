@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
             String key = "in.yatri.consumer";
             initiatePayload.put("requestId", UUID.randomUUID());
             initiatePayload.put("service", key);
-            innerPayload.put("clientId", "mobility-paytm");
-            innerPayload.put("merchantId", "mobility-paytm");
+            innerPayload.put("clientId", "<client_id>");
+            innerPayload.put("merchantId", "<client_id>");
             innerPayload.put("action", "initiate");
             innerPayload.put("service", key);
             innerPayload.put(PaymentConstants.ENV, "production");

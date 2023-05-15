@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const data = JSON.stringify({
     "mobileNumber": "9642429378",
     "mobileCountryCode": "+91",
-    "merchantId": "PAY_TM",
+    "merchantId": "<MERCHANT_ID>",
     "timestamp": "2023-04-13T07:28:40+00:00"
 });
 
