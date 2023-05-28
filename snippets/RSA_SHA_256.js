@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 
 const data = JSON.stringify({
+    "userId": "notificationToken",
     "mobileNumber": "9642429378",
     "mobileCountryCode": "+91",
     "merchantId": "<MERCHANT_ID>",
