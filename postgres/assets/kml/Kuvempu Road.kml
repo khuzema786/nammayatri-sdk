@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_24ACBCDA9B2A0DCCB1B5">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_177134922E2A0DCCB1B5">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0CB4CAC39C2A0DCCB1B5">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_177134922E2A0DCCB1B5</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_24ACBCDA9B2A0DCCB1B5</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0C0628AD012A0DCC5D8C">
+		<name>Kuvempu Road metro station</name>
+		<styleUrl>#__managed_style_0CB4CAC39C2A0DCCB1B5</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.55628213360357,12.99845856270247,0 77.55644931933423,12.99836145536853,0 77.55653775217309,12.99831550309104,0 77.55664088460689,12.99829214055589,0 77.55677011403135,12.998231917525,0 77.55683834120411,12.99819961078537,0 77.5569456169782,12.99820102149383,0 77.55710071628086,12.99809544046433,0 77.55728191319221,12.99808974062932,0 77.55737641696383,12.99816683652825,0 77.55762589574303,12.99816565310319,0 77.55771020553885,12.99845763114948,0 77.55756886708778,12.99848731116386,0 77.55753147438287,12.99865115260695,0 77.55733009343513,12.99868083093532,0 77.55705150568464,12.99871948914375,0 77.55656834773777,12.99878801318883,0 77.55654045898649,12.99865022504548,0 77.55633109727984,12.99869172129757,0 77.55628213360357,12.99845856270247,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

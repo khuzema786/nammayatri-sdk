@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_25318F96222A0D9DEB9D">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_127C00AC1B2A0D9DEB9D">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_07734541B62A0D9DEB9D">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_127C00AC1B2A0D9DEB9D</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_25318F96222A0D9DEB9D</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="00A4AC84A52A0D9DC27D">
+		<name>Hopefarm Channasandra</name>
+		<styleUrl>#__managed_style_07734541B62A0D9DEB9D</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.71073866703262,12.98857899350151,0 77.71084888298806,12.98841312140562,0 77.71090937024167,12.98840398897522,0 77.71102400555277,12.98842082255125,0 77.7111756980714,12.98848164185106,0 77.71145956399693,12.98863978012665,0 77.71166367370905,12.98875940514795,0 77.71200641619841,12.98895401852048,0 77.71207756379296,12.9890246030659,0 77.71208694843325,12.98909199342856,0 77.71197309683305,12.98929759348151,0 77.71192388456657,12.9893329280815,0 77.71186202221186,12.98935249191916,0 77.711784599553,12.98932197401749,0 77.71169724743054,12.98928345030117,0 77.71149432019732,12.9891628882451,0 77.71127756923256,12.98903827040612,0 77.71104339902354,12.98891096927025,0 77.71081092098694,12.98877423151051,0 77.71073307487464,12.98865937484439,0 77.71073866703262,12.98857899350151,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

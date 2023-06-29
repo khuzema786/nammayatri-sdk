@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_0A1A3DAC902A18EF1966">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1082BBC8F92A18EF1965">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_097FB58A4A2A18EF1965">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1082BBC8F92A18EF1965</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0A1A3DAC902A18EF1966</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="06088C44F42A0DB69C82">
+		<name>Srirampura metro station</name>
+		<styleUrl>#__managed_style_097FB58A4A2A18EF1965</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.56258650068645,12.99672849660004,0 77.56255615904277,12.99634338813397,0 77.56289860955263,12.99630501699735,0 77.56294790381413,12.99630417564171,0 77.56299481122065,12.99630778333117,0 77.5633728341661,12.9962499308401,0 77.56366644780621,12.99618711570758,0 77.56367181469335,12.99598869011077,0 77.56397334729614,12.99596355940904,0 77.56402998568132,12.99642511339794,0 77.56413940546511,12.9964332728253,0 77.56416191135455,12.99659464439575,0 77.56399173072425,12.99661005567352,0 77.56390968041161,12.99662496943392,0 77.56377103787257,12.99661419243253,0 77.56371313540089,12.99666524613374,0 77.56372236833819,12.99673992233932,0 77.56353580319463,12.9967755171811,0 77.56349673984843,12.99673794256416,0 77.56341488714195,12.99670367327098,0 77.56294031044659,12.99675721113493,0 77.56287156938181,12.9967128629906,0 77.56258650068645,12.99672849660004,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

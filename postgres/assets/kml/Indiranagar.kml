@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_2E347B2D0E2A18C79694">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>80a21f7b</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_11EAE4F6822A18C79694">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>80a21f7b</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_091F42F4BF2A18C79694">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_11EAE4F6822A18C79694</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2E347B2D0E2A18C79694</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="00E9E391722A0DB08138">
+		<name>Hosahalli</name>
+		<styleUrl>#__managed_style_091F42F4BF2A18C79694</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.63793677352913,12.97857843045503,0 77.63794748870563,12.97813394256175,0 77.63888729663304,12.97813752582349,0 77.63888590020736,12.97797967797325,0 77.63929002324117,12.97798428015965,0 77.63942611270491,12.97798985670257,0 77.63942834811445,12.97817057315588,0 77.63945600193347,12.97826538276916,0 77.6394581224118,12.97834132821171,0 77.63944981240601,12.97849578833637,0 77.63910732707713,12.97849348298688,0 77.63897585141385,12.97858640970578,0 77.63871469938222,12.97857761692249,0 77.63844764426877,12.9785719132609,0 77.63832974161325,12.97856848446101,0 77.63793677352913,12.97857843045503,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

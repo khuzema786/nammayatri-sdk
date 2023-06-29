@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_23185F30E82A0DD6B360">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1DB80EE58C2A0DD6B360">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_01672B81F22A0DD6B360">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1DB80EE58C2A0DD6B360</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_23185F30E82A0DD6B360</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0E1E8FA9AD2A0DD69046">
+		<name>Peenya Industry metro station</name>
+		<styleUrl>#__managed_style_01672B81F22A0DD6B360</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.52526580245771,13.03687188489181,0 77.52520820153686,13.03690594477228,0 77.52514536254243,13.03691955351774,0 77.52494296661095,13.03694719100702,0 77.52489679787274,13.03691275860196,0 77.52485342548171,13.03686235483554,0 77.52482381401116,13.03678006541465,0 77.52475619614954,13.03667411709672,0 77.52483283480375,13.03654956046205,0 77.52488159399456,13.03649749161347,0 77.52550610491168,13.03616350463265,0 77.52613874614832,13.03583206587829,0 77.52626858089648,13.03603137838524,0 77.52633389455025,13.03628039665086,0 77.52526580245771,13.03687188489181,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

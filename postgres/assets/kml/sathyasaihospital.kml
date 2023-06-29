@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_26B546D7562A0DB36E0B">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_10BA52074B2A0DB36E0B">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_06A822DCEE2A0DB36E0B">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_10BA52074B2A0DB36E0B</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_26B546D7562A0DB36E0B</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0586FE9C772A0DB355FB">
+		<name>Sri Sathya Sai Hospital metro station</name>
+		<styleUrl>#__managed_style_06A822DCEE2A0DB36E0B</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.72759487739081,12.98188060266484,0 77.7275366567619,12.9818425672789,0 77.72746889010705,12.98174655464545,0 77.72725368525724,12.98120637438005,0 77.72723158523647,12.98069893504418,0 77.72731205819125,12.98050859090037,0 77.72750035801151,12.98046749451686,0 77.72762859043713,12.98040682151404,0 77.72775832255938,12.98053486819637,0 77.72785088675076,12.98093432230134,0 77.72786860991984,12.98100976055056,0 77.72789440681379,12.98119362241316,0 77.72791784077782,12.98135953086881,0 77.72798535654519,12.98173682371485,0 77.72792990937553,12.9818374488738,0 77.72791071621259,12.98190493147472,0 77.72778066245492,12.98192936846459,0 77.72769053168426,12.98193035352824,0 77.72759487739081,12.98188060266484,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

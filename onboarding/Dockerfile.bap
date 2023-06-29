@@ -1,0 +1,15 @@
+# Use a base image
+FROM python:3.9
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the necessary files to the working directory
+COPY requirements.txt .
+COPY bap.py .
+
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# Execute your Python script
+CMD ["python", "-u", "bap.py"]

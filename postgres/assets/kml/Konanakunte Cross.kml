@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_0634DC6ADF2A37E095EF">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>80a21f7b</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1DCAAE13362A37E095EE">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>80a21f7b</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_06C88BDE812A37E095EE">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1DCAAE13362A37E095EE</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0634DC6ADF2A37E095EF</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="05E06618182A0DD51F94">
+		<name>Krishna Rajendra Market</name>
+		<styleUrl>#__managed_style_06C88BDE812A37E095EE</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+			<Data name="city ">
+				<value>null</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.56211640884443,12.88838441128943,0 77.56213777563171,12.88831068842715,0 77.56223075699319,12.88824618479193,0 77.56225124316144,12.88828378716871,0 77.56227243416159,12.8883061603498,0 77.56229131152708,12.8883440354833,0 77.56232652276435,12.88836125638581,0 77.56233751672094,12.88834407928513,0 77.56236512425366,12.88834815280298,0 77.56238833665535,12.88835036972345,0 77.56243678960433,12.88834976606002,0 77.56245030968257,12.88831583242346,0 77.56245428797266,12.88834051179711,0 77.56256880233218,12.88837278165087,0 77.5626398909624,12.88841956118556,0 77.56339302513342,12.88905145204122,0 77.56348828502034,12.88914141236838,0 77.56357403545086,12.88922201783373,0 77.56355615559524,12.88939792670716,0 77.56352802344165,12.88941724552559,0 77.56350492747264,12.88942701278741,0 77.56344599509201,12.88943918431504,0 77.56336084404703,12.88946204591461,0 77.56325687876102,12.88957240673548,0 77.56307472878105,12.88946882848785,0 77.56297514148604,12.8894421884414,0 77.56292850734296,12.88942180771084,0 77.56287820286661,12.88937984446666,0 77.5621943405264,12.88882381043647,0 77.56211842386331,12.8887318612589,0 77.56208895471333,12.88863478261579,0 77.56206471585658,12.88854996388899,0 77.56210555927967,12.88850172083848,0 77.56211640884443,12.88838441128943,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

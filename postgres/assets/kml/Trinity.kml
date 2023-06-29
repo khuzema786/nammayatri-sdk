@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_2C5CC86C692A18F44350">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1DB1472D0B2A18F44350">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0684624C1D2A18F44350">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1DB1472D0B2A18F44350</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2C5CC86C692A18F44350</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0EBF1732B52A0DC174F8">
+		<name>Trinity metro station</name>
+		<styleUrl>#__managed_style_0684624C1D2A18F44350</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.61724293800324,12.97324535288244,0 77.61720641288106,12.97319530568607,0 77.61716896974067,12.9731720003063,0 77.61669268596646,12.97327595139455,0 77.61661236578442,12.9732948166192,0 77.61640082641838,12.9733382931251,0 77.61634868272857,12.97316223924651,0 77.61630014466597,12.97302400418264,0 77.61657540941172,12.97292854277473,0 77.61664704502448,12.97290475167962,0 77.61672567379111,12.97287816479543,0 77.61664585610276,12.97253986963469,0 77.61692019259991,12.97248607584981,0 77.61707573859373,12.97245689959814,0 77.61733114532801,12.9726582487392,0 77.61746111086876,12.97269303133096,0 77.61750702134322,12.97272215283877,0 77.61753960280792,12.9727564209296,0 77.61771030281785,12.97276331295063,0 77.6177589958362,12.97284598102643,0 77.61774683131476,12.97295555541191,0 77.61762055710143,12.97303140095362,0 77.61759869901829,12.97307729525602,0 77.61756437443248,12.97319774470397,0 77.61724293800324,12.97324535288244,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_218EA402B42A0DCF2E86">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1EB5BF42482A0DCF2E86">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_030EBA83532A0DCF2E86">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1EB5BF42482A0DCF2E86</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_218EA402B42A0DCF2E86</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0BE8DB4EE72A0DCEFDE1">
+		<name>Kengeri</name>
+		<styleUrl>#__managed_style_030EBA83532A0DCF2E86</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+			<Data name="city ">
+				<value>null</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.62687579745067,12.97693762749828,0 77.62661583935503,12.97657541924314,0 77.62647149011086,12.97665015310597,0 77.62640816099274,12.97653319030202,0 77.62635593686201,12.97643205765652,0 77.62633353393335,12.976360874293,0 77.62623040070336,12.97642999346347,0 77.62613814648958,12.97632422966661,0 77.62630542056046,12.97623008307905,0 77.62628339166632,12.97617211401794,0 77.62638253393028,12.97610773146433,0 77.62635133126082,12.97606495219038,0 77.62628742085202,12.9759860952644,0 77.62636446092615,12.97589840896141,0 77.62645703922635,12.97586120222272,0 77.6265341570989,12.97595389717282,0 77.62661680738812,12.97591293854254,0 77.62718799308453,12.97674038717742,0 77.62712857204447,12.97679713281255,0 77.62716245497056,12.97684057598444,0 77.62721206905925,12.97690730711109,0 77.62719598948216,12.97695070289636,0 77.62713709613806,12.97699402597016,0 77.62704076157627,12.9770129059624,0 77.62695239300911,12.97690475545951,0 77.62687579745067,12.97693762749828,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_0451B90BBE2A18C92F1D">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>80a21f7b</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_12A93AAD3C2A18C92F1C">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>80a21f7b</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0E2DA162B12A18C92F1C">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_12A93AAD3C2A18C92F1C</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0451B90BBE2A18C92F1D</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="08E24BB2CA2A0DBCB907">
+		<name>Jayanagar</name>
+		<styleUrl>#__managed_style_0E2DA162B12A18C92F1C</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+			<Data name="city ">
+				<value>null</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.57291475372902,12.90661853024167,0 77.57303218170956,12.90662321142089,0 77.57309929522029,12.90662322073725,0 77.57316441522332,12.90662265414779,0 77.57320735327284,12.90665591230467,0 77.5733617715518,12.90669692999122,0 77.5736231086015,12.90679034647751,0 77.57358462184058,12.90706538051688,0 77.57357652949577,12.90718595534059,0 77.57351740953062,12.90760003998059,0 77.57346882050929,12.90765664014922,0 77.57340458743293,12.90777607540946,0 77.57345287649039,12.90782286044528,0 77.57342992076229,12.90788401163158,0 77.57341384674044,12.90792765437865,0 77.57339364693088,12.90800121460767,0 77.57338360255352,12.90804473041197,0 77.57334888990769,12.90821162625629,0 77.57333165201921,12.90828774847329,0 77.5731995831518,12.90827396208685,0 77.57299247013955,12.90826605598015,0 77.57292655342167,12.90826102587405,0 77.57278692917863,12.90824268049802,0 77.57279885422356,12.90807774781342,0 77.57281372862332,12.90802800935601,0 77.57290318309028,12.90768357161732,0 77.5729055000956,12.90764451969205,0 77.57289135526879,12.90760319159575,0 77.5728776946643,12.90756873839273,0 77.57290495923628,12.90736721928481,0 77.57291145638227,12.90727181912666,0 77.5728820287937,12.90718097094457,0 77.5728777625061,12.90710326509158,0 77.57291475372902,12.90661853024167,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

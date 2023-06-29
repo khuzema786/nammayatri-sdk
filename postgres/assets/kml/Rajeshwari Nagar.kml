@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<gx:CascadingStyle kml:id="__managed_style_2122F6285A2A18EA0C7C">
+		<Style>
+			<IconStyle>
+				<scale>1.44</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<width>1.5</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1A1DE2F9E92A18EA0C7C">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+			</LineStyle>
+			<PolyStyle>
+				<color>00ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_05ED221B3A2A18EA0C7C">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1A1DE2F9E92A18EA0C7C</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2122F6285A2A18EA0C7C</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="09E64D91282A0DDA567B">
+		<name>Rajarajeshwari Nagar metro station</name>
+		<styleUrl>#__managed_style_05ED221B3A2A18EA0C7C</styleUrl>
+		<ExtendedData>
+			<Data name="city">
+				<value>Bangalore</value>
+			</Data>
+			<Data name="state">
+				<value>Karnataka</value>
+			</Data>
+		</ExtendedData>
+		<Polygon>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						77.51926034582624,12.93624983474193,0 77.52029991516277,12.9366262330336,0 77.52037391005778,12.93668526577818,0 77.52044794070159,12.93679831661476,0 77.52032413522603,12.93701314186667,0 77.52025261304556,12.93716034925574,0 77.5200889747977,12.93718707792415,0 77.51991756979025,12.93711995155059,0 77.51977526668323,12.93707603014266,0 77.51948516109015,12.93694456624212,0 77.51894168060454,12.93675743443358,0 77.51881771588593,12.93672319304593,0 77.51874874788074,12.93666014158831,0 77.51868504425808,12.93660054832926,0 77.51859250197658,12.93593398565365,0 77.51906538437298,12.93591983538264,0 77.51922188792808,12.93624499556712,0 77.51926034582624,12.93624983474193,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+	</Placemark>
+</Document>
+</kml>

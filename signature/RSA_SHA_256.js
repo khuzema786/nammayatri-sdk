@@ -25,7 +25,7 @@ const hashBase64 = Buffer.from(publicKey).toString('base64')
 
 console.log("Base64 Encoded Public Key :", hashBase64)
 
-let data = "{\"userId\":\"bx3LVd+iE4NMA7XS3NX129LKz/VsYCBCeVQOAoJlAS1bXfhrEmI=\",\"mobileNumber\":\"RUn8Ib4J9XjbGPxmD+HyIRrTlZ30JdVb3AF1KsChnzeOYsqhSYM=\",\"mobileCountryCode\":\"+91\",\"merchantId\":\"NAMMA_YATRI\",\"timestamp\":\"2023-04-13T07:28:40+00:00\"}";
+let data = "{\"mobileNumber\":\"9493143166\",\"mobileCountryCode\":\"+91\",\"merchantId\":\"MOBILITY_PASSCULTURE\",\"timestamp\":\"2023-04-13T07:28:40+00:00\"}";
 const sign = crypto.createSign('RSA-SHA256');
 sign.update(data);
 const signature = sign.sign(privateKey, 'base64');
