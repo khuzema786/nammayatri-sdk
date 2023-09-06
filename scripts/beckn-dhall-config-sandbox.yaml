@@ -1,0 +1,869 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: beckn-dhall-config-sandbox
+  namespace: atlas
+data:
+  common.dhall: |
+    let sec = ./secrets/common.dhall
+    
+    let globalCommon = ../generic/common.dhall
+    
+    let branchName = "sandbox"
+    
+    in  { smsSessionConfig = globalCommon.smsSessionConfig
+        , autoMigrate = globalCommon.autoMigrate
+        , loggerConfig = globalCommon.loggerConfig // { logRawSql = True }
+        , LogLevel = globalCommon.LogLevel
+        , ServerName = globalCommon.ServerName
+        , s3Config = sec.s3Config
+        , s3PublicConfig = sec.s3PublicConfig
+        , slackToken = sec.slackToken
+        , signatureExpiry = globalCommon.signatureExpiry
+        , httpClientOptions = globalCommon.httpClientOptions
+        , shortDurationRetryCfg = globalCommon.shortDurationRetryCfg
+        , longDurationRetryCfg = globalCommon.longDurationRetryCfg
+        , smsUserName = sec.smsUserName
+        , smsPassword = sec.smsPassword
+        , InfoBIPConfig = sec.InfoBIPConfig
+        , branchName
+        , periodType = globalCommon.periodType
+        , passetto = { _1 = "passetto-hs.atlas", _2 = 8012 }
+        , googleTranslateUrl = "https://www.googleapis.com/"
+        , googleTranslateKey = sec.googleTranslateKey
+        , registryUrl = "https://api.sandbox.beckn.juspay.in/registry"
+        , authServiceUrl = "http://beckn-app-backend-sandbox.atlas:8013"
+        , consumerType = globalCommon.consumerType
+        , kafkaCompression = globalCommon.kafkaCompression
+        , schedulerType = globalCommon.schedulerType
+        }
+  dynamic-offer-driver-app.dhall: |
+    let common = ./common.dhall
+    
+    let globalCommon = ../generic/common.dhall
+    
+    let sec = ./secrets/dynamic-offer-driver-app.dhall
+    
+    let esqDBCfg =
+          { connectHost =
+              "beckn-test-integ-aurora.ctiuwghisbi9.ap-south-1.rds.amazonaws.com"
+          , connectPort = 5432
+          , connectUser = sec.dbUserId
+          , connectPassword = sec.dbPassword
+          , connectDatabase = "atlas_driver_offer_bpp"
+          , connectSchemaName = "atlas_driver_offer_bpp"
+          , connectionPoolCount = +25
+          }
+    
+    let esqDBReplicaCfg =
+          { connectHost = esqDBCfg.connectHost
+          , connectPort = esqDBCfg.connectPort
+          , connectUser = esqDBCfg.connectUser
+          , connectPassword = esqDBCfg.connectPassword
+          , connectDatabase = esqDBCfg.connectDatabase
+          , connectSchemaName = esqDBCfg.connectSchemaName
+          , connectionPoolCount = +25
+          }
+    
+    let rcfg =
+          { connectHost = "beckn-redis-001.zkt6uh.ng.0001.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = None Integer
+          }
+    
+    let rccfg =
+          { connectHost =
+              "beckn-cluster-redis-001.zkt6uh.clustercfg.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = None Integer
+          }
+    
+    let smsConfig =
+          { sessionConfig = common.smsSessionConfig
+          , credConfig =
+            { username = common.smsUserName
+            , password = common.smsPassword
+            , otpHash = sec.smsOtpHash
+            }
+          , useFakeSms = Some 7891
+          , url = "https://http.myvfirst.com"
+          , sender = "JUSPAY"
+          }
+    
+    let apiRateLimitOptions = { limit = +100000, limitResetTimeInSec = +1 }
+    
+    let slackCfg =
+          { channelName = "beckn-driver-onboard-test"
+          , slackToken = common.slackToken
+          }
+    
+    let encTools = { service = common.passetto, hashSalt = sec.encHashSalt }
+    
+    let driverLocationUpdateRateLimitOptions =
+          { limit = +2000000000, limitResetTimeInSec = +2 }
+    
+    let cacheConfig = { configsExpTime = +86400 }
+    
+    let cacheTranslationConfig = { expTranslationTime = +3600 }
+    
+    let kafkaProducerCfg =
+          { brokers = [ "kafka.kafka.svc.cluster.local:9092" ]
+          , kafkaCompression = common.kafkaCompression.LZ4
+          }
+    
+    let clickhouseCfg =
+          { username = "xxxx"
+          , host = "xxxxx"
+          , port = 1234
+          , password = "xxxx"
+          , database = "xxxx"
+          , tls = True
+          }
+    
+    let sampleKafkaConfig
+        : globalCommon.kafkaConfig
+        = { topicName = "dynamic-offer-driver-events-updates"
+          , kafkaKey = "dynamic-offer-driver"
+          }
+    
+    let sampleLogConfig
+        : Text
+        = "log-stream"
+    
+    let eventStreamMappings =
+          [ { streamName = globalCommon.eventStreamNameType.KAFKA_STREAM
+            , streamConfig = globalCommon.streamConfig.KafkaStream sampleKafkaConfig
+            , eventTypes =
+              [ globalCommon.eventType.RideCreated
+              , globalCommon.eventType.RideStarted
+              , globalCommon.eventType.RideEnded
+              , globalCommon.eventType.RideCancelled
+              , globalCommon.eventType.BookingCreated
+              , globalCommon.eventType.BookingCancelled
+              , globalCommon.eventType.BookingCompleted
+              , globalCommon.eventType.SearchRequest
+              , globalCommon.eventType.Quotes
+              , globalCommon.eventType.Estimate
+              ]
+            }
+          , { streamName = globalCommon.eventStreamNameType.LOG_STREAM
+            , streamConfig = globalCommon.streamConfig.LogStream sampleLogConfig
+            , eventTypes =
+              [ globalCommon.eventType.RideEnded
+              , globalCommon.eventType.RideCancelled
+              ]
+            }
+          ]
+    
+    let tables =
+          { enableKVForWriteAlso =
+                [ { nameOfTable = "registration_token", percentEnable = 0 }
+                , { nameOfTable = "search_request", percentEnable = 0 }
+                , { nameOfTable = "search_try", percentEnable = 0 }
+                , { nameOfTable = "driver_information", percentEnable = 0 }
+                , { nameOfTable = "driver_flow_status", percentEnable = 0 }
+                , { nameOfTable = "business_event", percentEnable = 0 }
+                , { nameOfTable = "booking", percentEnable = 0 }
+                , { nameOfTable = "estimate", percentEnable = 0 }
+                , { nameOfTable = "fare_parameters", percentEnable = 0 }
+                , { nameOfTable = "fare_parameters_progressive_details", percentEnable = 0 }
+                , { nameOfTable = "booking_location", percentEnable = 0 }
+                , { nameOfTable = "ride_details", percentEnable = 0 }
+                , { nameOfTable = "rider_details", percentEnable = 0 }
+                , { nameOfTable = "driver_stats", percentEnable = 0 }
+                , { nameOfTable = "driver_quote"
+                  , percentEnable = 0
+                  }
+                , { nameOfTable = "search_request_location", percentEnable = 0 }
+                , { nameOfTable = "fare_parameters_slab_details", percentEnable = 0 }
+                , { nameOfTable = "booking_cancellation_reason", percentEnable = 0 }
+                , { nameOfTable = "rating", percentEnable = 0 }
+                , { nameOfTable = "beckn_request", percentEnable = 0 }
+                , { nameOfTable = "ride", percentEnable = 0 }
+                , { nameOfTable = "search_request_for_driver", percentEnable = 0 }
+                , { nameOfTable = "person", percentEnable = 0 }
+                , { nameOfTable = "vehicle", percentEnable = 0 }
+                , { nameOfTable = "driver_rc_association", percentEnable = 0 }
+                , { nameOfTable = "driver_referral", percentEnable = 0 }
+                , { nameOfTable = "message", percentEnable = 0 }
+                , { nameOfTable = "idfy_verification", percentEnable = 0 }
+                ]
+              : List { nameOfTable : Text, percentEnable : Natural }
+          , enableKVForRead =
+                [ "registration_token"
+                , "search_request"
+                , "search_try"
+                , "driver_information"
+                , "driver_flow_status"
+                , "business_event"
+                , "booking"
+                , "estimate"
+                , "fare_parameters"
+                , "fare_parameters_progressive_details"
+                , "booking_location"
+                , "ride_details"
+                , "rider_details"
+                , "driver_stats"
+                , "driver_quote"
+                , "search_request_location"
+                , "fare_parameters_slab_details"
+                , "booking_cancellation_reason"
+                , "rating"
+                , "beckn_request"
+                , "search_request_for_driver"
+                , "ride"
+                , "person"
+                , "vehicle"
+                , "driver_rc_association"
+                , "driver_referral"
+                , "message"
+                , "idfy_verification"
+                ]
+              : List Text
+          }
+    
+    let appBackendBapInternal =
+          { name = "APP_BACKEND"
+          , url = "http://beckn-app-backend-sandbox.atlas.svc.cluster.local:8013"
+          , apiKey = sec.appBackendApikey
+          , internalKey = sec.internalKey
+          }
+    
+    let AllocatorJobType =
+          < SendSearchRequestToDriver
+          | SendPaymentReminderToDriver
+          | UnsubscribeDriverForPaymentOverdue
+          | UnblockDriver
+          >
+    
+    let jobInfoMapx =
+          [ { mapKey = AllocatorJobType.SendSearchRequestToDriver
+            , mapValue = False
+            }
+          , { mapKey = AllocatorJobType.SendPaymentReminderToDriver
+            , mapValue = False
+            }
+          , { mapKey = AllocatorJobType.UnsubscribeDriverForPaymentOverdue
+            , mapValue = True
+            }
+          , { mapKey = AllocatorJobType.UnblockDriver, mapValue = False }
+          ]
+          
+    let locationTrackingeServiceConfig = { url = "http://beckn-location-tracking-service-sandbox.atlas:8016" }
+    
+    in  { esqDBCfg
+        , esqDBReplicaCfg
+        , esqLocationDBCfg = esqDBCfg
+        , esqLocationDBRepCfg = esqDBReplicaCfg
+        , clickhouseCfg
+        , hedisCfg = rcfg
+        , hedisNonCriticalCfg = rcfg
+        , hedisNonCriticalClusterCfg = rccfg
+        , enableRedisLatencyLogging = True
+        , enablePrometheusMetricLogging = True
+        , hedisMigrationStage = False
+        , cutOffHedisCluster = True
+        , hedisClusterCfg = rccfg
+        , port = +8016
+        , metricsPort = +9997
+        , hostName = "juspay.in"
+        , nwAddress = "https://api.sandbox.beckn.juspay.in/dobpp/beckn"
+        , selfUIUrl = "https://api.sandbox.beckn.juspay.in/dobpp/ui"
+        , signingKey = sec.signingKey
+        , signatureExpiry = common.signatureExpiry
+        , s3Config = common.s3Config
+        , s3PublicConfig = common.s3PublicConfig
+        , migrationPath = None Text
+        , jobInfoMapx
+        , autoMigrate = common.autoMigrate
+        , coreVersion = "0.9.4"
+        , loggerConfig =
+                common.loggerConfig
+            //  { logFilePath = "/tmp/dynamic-offer-driver-app.log"
+                , logRawSql = True
+                }
+        , googleTranslateUrl = common.googleTranslateUrl
+        , googleTranslateKey = common.googleTranslateKey
+        , appBackendBapInternal
+        , graceTerminationPeriod = +90
+        , encTools
+        , authTokenCacheExpiry = +600
+        , disableSignatureAuth = False
+        , httpClientOptions = common.httpClientOptions
+        , shortDurationRetryCfg = common.shortDurationRetryCfg
+        , longDurationRetryCfg = common.longDurationRetryCfg
+        , apiRateLimitOptions
+        , slackCfg
+        , smsCfg = smsConfig
+        , searchRequestExpirationSeconds = +1800
+        , driverQuoteExpirationSeconds = +15
+        , driverUnlockDelay = +2
+        , cacheConfig
+        , metricsSearchDurationTimeout = +45
+        , dashboardToken = sec.dashboardToken
+        , driverLocationUpdateRateLimitOptions
+        , driverReachedDistance = +100
+        , cacheTranslationConfig
+        , driverLocationUpdateTopic = "location-updates-sandbox"
+        , broadcastMessageTopic = "broadcast-messages-sandbox"
+        , kafkaProducerCfg
+        , snapToRoadSnippetThreshold = +300
+        , minTripDistanceForReferralCfg = Some +1000
+        , maxShards = +5
+        , enableAPILatencyLogging = False
+        , enableAPIPrometheusMetricLogging = True
+        , eventStreamMap = eventStreamMappings
+        , locationTrackingServiceKey = sec.locationTrackingServiceKey
+        , tables
+        , schedulerSetName = "Scheduled_Jobs"
+        , schedulerType = common.schedulerType.RedisBased
+        , ltsCfg = locationTrackingeServiceConfig
+        , enableLocationTrackingService = True
+        }
+  globalCommon.dhall: |
+    let mkShard =
+          \(shardId : Integer) ->
+          \(shortOrgId : Text) ->
+            { mapKey = shardId, mapValue = shortOrgId }
+    
+    let PeriodType = < Minutes | Hours | Days | Months | Years >
+    
+    let LogLevel = < DEBUG | INFO | WARNING | ERROR >
+    
+    let KafkaCompression = < NO_COMPRESSION | GZIP | SNAPPY | LZ4 >
+    
+    let S3AwsConfig =
+          { accessKeyId : Text
+          , secretAccessKey : Text
+          , bucketName : Text
+          , region : Text
+          , pathPrefix : Text
+          }
+    
+    let S3MockConfig =
+          { baseLocalDirectory : Text, bucketName : Text, pathPrefix : Text }
+    
+    let S3Config = < S3AwsConf : S3AwsConfig | S3MockConf : S3MockConfig >
+    
+    let smsSessionConfig = { attempts = +3, authExpiry = +3, tokenExpiry = +365 }
+    
+    let loggerConfig =
+          { level = LogLevel.DEBUG
+          , logToFile = False
+          , logToConsole = True
+          , logRawSql = False
+          , prettyPrinting = False
+          }
+    
+    let ConsumerType = < AVAILABILITY_TIME | FEED_TO_CLICKHOUSE | PERSON_STATS >
+    
+    let kafkaConfig = { topicName : Text, kafkaKey : Text }
+    
+    let eventStreamNameType =
+          < KAFKA_STREAM | LOG_STREAM | PROMETHEUS_STREAM | REDIS_STREAM >
+    
+    let streamConfig =
+          < KafkaStream : kafkaConfig | LogStream : Text | PrometheusStream : Text >
+    
+    let eventType =
+          < RideCreated
+          | RideStarted
+          | RideEnded
+          | RideCancelled
+          | BookingCreated
+          | BookingCancelled
+          | BookingCompleted
+          | SearchRequest
+          | Quotes
+          | Estimate
+          >
+    
+    let httpClientOptions = { timeoutMs = +4000 }
+    
+    let shortDurationRetryCfg = { maxRetries = +3, baseCoefficient = +2 }
+    
+    let longDurationRetryCfg = { maxRetries = +3, baseCoefficient = +4 }
+    
+    let ServerName =
+          < APP_BACKEND | BECKN_TRANSPORT | DRIVER_OFFER_BPP | SPECIAL_ZONE >
+    
+    let SchedulerType = < RedisBased | DbBased >
+    
+    in  { smsSessionConfig
+        , autoMigrate = False
+        , loggerConfig
+        , LogLevel
+        , signatureExpiry = +600
+        , mkShard
+        , httpClientOptions
+        , shortDurationRetryCfg
+        , longDurationRetryCfg
+        , ServerName
+        , S3Config
+        , periodType = PeriodType
+        , consumerType = ConsumerType
+        , kafkaCompression = KafkaCompression
+        , kafkaConfig
+        , streamConfig
+        , eventStreamNameType
+        , eventType
+        , schedulerType = SchedulerType
+        }
+  provider-dashboard.dhall: |
+    let common = ./common.dhall
+    
+    let sec = ./secrets/provider-dashboard.dhall
+    
+    let esqDBCfg =
+          { connectHost =
+              "beckn-test-integ-aurora.ctiuwghisbi9.ap-south-1.rds.amazonaws.com"
+          , connectPort = 5432
+          , connectUser = sec.dbUserId
+          , connectPassword = sec.dbPassword
+          , connectDatabase = "atlas_bpp_dashboard"
+          , connectSchemaName = "atlas_bpp_dashboard"
+          , connectionPoolCount = +25
+          }
+    
+    let esqDBReplicaCfg =
+          { connectHost = esqDBCfg.connectHost
+          , connectPort = esqDBCfg.connectPort
+          , connectUser = esqDBCfg.connectUser
+          , connectPassword = esqDBCfg.connectPassword
+          , connectDatabase = esqDBCfg.connectDatabase
+          , connectSchemaName = esqDBCfg.connectSchemaName
+          , connectionPoolCount = +25
+          }
+    
+    let rcfg =
+          { connectHost = "beckn-redis-001.zkt6uh.ng.0001.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = Some +100
+          }
+    
+    let rccfg =
+          { connectHost =
+              "beckn-cluster-redis-001.zkt6uh.clustercfg.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = None Integer
+          }
+    
+    let specialZone =
+          { name = common.ServerName.SPECIAL_ZONE
+          , url = "http://beckn-special-zone-sandbox.atlas:8032/"
+          , token = sec.specialZoneToken
+          }
+    
+    let apiRateLimitOptions = { limit = +4, limitResetTimeInSec = +600 }
+    
+    let shareRideApiRateLimitOptions = { limit = +20, limitResetTimeInSec = +60 }
+    
+    let encTools = { service = common.passetto, hashSalt = sec.encHashSalt }
+    
+    let becknTransport =
+          { name = common.ServerName.BECKN_TRANSPORT
+          , url = "http://beckn-transport-sandbox.atlas:8014/"
+          , token = sec.becknTransportToken
+          }
+    
+    let driverOfferBpp =
+          { name = common.ServerName.DRIVER_OFFER_BPP
+          , url = "http://beckn-dobpp-dashboard-internal-sandbox.atlas:8016/"
+          , token = sec.driverOfferBppToken
+          }
+    
+    let appBackend =
+          { name = common.ServerName.APP_BACKEND
+          , url = "http://beckn-app-backend-dashboard-internal-sandbox.atlas:8013/"
+          , token = sec.appBackendToken
+          }
+    
+    in  { esqDBCfg
+        , esqDBReplicaCfg
+        , hedisCfg = rcfg
+        , hedisNonCriticalCfg = rcfg
+        , hedisNonCriticalClusterCfg = rccfg
+        , enableRedisLatencyLogging = False
+        , enablePrometheusMetricLogging = True
+        , hedisMigrationStage = False
+        , cutOffHedisCluster = True
+        , hedisClusterCfg = rccfg
+        , port = +8018
+        , migrationPath = None Text
+        , autoMigrate = common.autoMigrate
+        , loggerConfig =
+            common.loggerConfig // { logFilePath = "/tmp/provider-dashboard.log" }
+        , graceTerminationPeriod = +90
+        , apiRateLimitOptions
+        , shareRideApiRateLimitOptions
+        , httpClientOptions = common.httpClientOptions
+        , shortDurationRetryCfg = common.shortDurationRetryCfg
+        , longDurationRetryCfg = common.longDurationRetryCfg
+        , authTokenCacheExpiry = +600
+        , registrationTokenExpiry = +365
+        , encTools
+        , exotelToken = sec.exotelToken
+        , dataServers = [ becknTransport, driverOfferBpp, appBackend, specialZone ]
+        }
+  rider-app.dhall: |
+    let common = ./common.dhall
+    
+    let sec = ./secrets/rider-app.dhall
+    
+    let globalCommon = ../generic/common.dhall
+    
+    let cacheFeedbackFormConfig = { configsExpTime = +5184000 }
+    
+    let esqDBCfg =
+          { connectHost =
+              "beckn-test-integ-aurora.ctiuwghisbi9.ap-south-1.rds.amazonaws.com"
+          , connectPort = 5432
+          , connectUser = sec.dbUserId
+          , connectPassword = sec.dbPassword
+          , connectDatabase = "atlas_app"
+          , connectSchemaName = "atlas_app"
+          , connectionPoolCount = +25
+          }
+    
+    let esqDBReplicaCfg =
+          { connectHost = esqDBCfg.connectHost
+          , connectPort = esqDBCfg.connectPort
+          , connectUser = esqDBCfg.connectUser
+          , connectPassword = esqDBCfg.connectPassword
+          , connectDatabase = esqDBCfg.connectDatabase
+          , connectSchemaName = esqDBCfg.connectSchemaName
+          , connectionPoolCount = +25
+          }
+    
+    let hcfg =
+          { connectHost = "beckn-redis-001.zkt6uh.ng.0001.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = Some +100
+          }
+    
+    let hccfg =
+          { connectHost =
+              "beckn-cluster-redis-001.zkt6uh.clustercfg.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = None Integer
+          }
+    
+    let smsConfig =
+          { sessionConfig = common.smsSessionConfig
+          , credConfig =
+            { username = common.smsUserName
+            , password = common.smsPassword
+            , otpHash = sec.smsOtpHash
+            }
+          , useFakeSms = Some 7891
+          , url = "https://http.myvfirst.com"
+          , sender = "JUSPAY"
+          }
+    
+    let InfoBIPConfig =
+          { username = common.InfoBIPConfig.username
+          , password = common.InfoBIPConfig.password
+          , token = common.InfoBIPConfig.token
+          , webhookurl = "https://5vmxvj.api.infobip.com"
+          , url = "https://5vmxvj.api.infobip.com"
+          , sender = "JUSPAY"
+          }
+    
+    let WebengageConfig = { url = "https://st.in.webengage.com" }
+    
+    let sampleKafkaConfig
+        : globalCommon.kafkaConfig
+        = { topicName = "rider-app-events-updates", kafkaKey = "rider-app" }
+    
+    let sampleLogConfig
+        : Text
+        = "log-stream"
+    
+    let samplePrometheusConfig
+        : Text
+        = "prometheus-stream"
+    
+    let eventStreamMappings =
+          [ { streamName = globalCommon.eventStreamNameType.KAFKA_STREAM
+            , streamConfig = globalCommon.streamConfig.KafkaStream sampleKafkaConfig
+            , eventTypes =
+              [ globalCommon.eventType.RideCreated
+              , globalCommon.eventType.RideStarted
+              , globalCommon.eventType.RideEnded
+              , globalCommon.eventType.RideCancelled
+              , globalCommon.eventType.BookingCreated
+              , globalCommon.eventType.BookingCancelled
+              , globalCommon.eventType.BookingCompleted
+              , globalCommon.eventType.SearchRequest
+              , globalCommon.eventType.Quotes
+              , globalCommon.eventType.Estimate
+              ]
+            }
+          , { streamName = globalCommon.eventStreamNameType.LOG_STREAM
+            , streamConfig = globalCommon.streamConfig.LogStream sampleLogConfig
+            , eventTypes =
+              [ globalCommon.eventType.RideEnded
+              , globalCommon.eventType.RideCancelled
+              ]
+            }
+          , { streamName = globalCommon.eventStreamNameType.PROMETHEUS_STREAM
+            , streamConfig =
+                globalCommon.streamConfig.PrometheusStream samplePrometheusConfig
+            , eventTypes =
+              [ globalCommon.eventType.RideCreated
+              , globalCommon.eventType.SearchRequest
+              ]
+            }
+          ]
+    
+    let apiRateLimitOptions = { limit = +4, limitResetTimeInSec = +600 }
+    
+    let searchRateLimitOptions = { limit = +400, limitResetTimeInSec = +1 }
+    
+    let slackCfg =
+          { channelName = "#beckn-driver-onboard-test"
+          , slackToken = common.slackToken
+          }
+    
+    let httpClientOptions = { timeoutMs = +4000 }
+    
+    let shortDurationRetryCfg = { maxRetries = +3, baseCoefficient = +2 }
+    
+    let longDurationRetryCfg = { maxRetries = +3, baseCoefficient = +4 }
+    
+    let encTools = { service = common.passetto, hashSalt = sec.encHashSalt }
+    
+    let kafkaProducerCfg =
+          { brokers = [ "kafka-0.kafka.svc.cluster.local:9092" ]
+          , kafkaCompression = common.kafkaCompression.LZ4
+          }
+    
+    let rideConfig =
+          { driverReachedDistance = +100, driverOnTheWayNotifyExpiry = +3600 }
+    
+    let cacheConfig = { configsExpTime = +86400 }
+    
+    let cacheTranslationConfig = { expTranslationTime = +3600 }
+    
+    
+    let tables =
+          { enableKVForWriteAlso =
+                [ { nameOfTable = "search_request_location", percentEnable = 0 }
+                , { nameOfTable = "registration_token", percentEnable = 0 }
+                , { nameOfTable = "search_request", percentEnable = 0 }
+                , { nameOfTable = "person_flow_status", percentEnable = 0 }
+                , { nameOfTable = "estimate_breakup", percentEnable = 0 }
+                , { nameOfTable = "estimate_breakup", percentEnable = 0 }
+                , { nameOfTable = "estimate", percentEnable = 0 }
+                , { nameOfTable = "on_search_event", percentEnable = 0 }
+                , { nameOfTable = "driver_offer", percentEnable = 0 }
+                , { nameOfTable = "quote", percentEnable = 0 }
+                , { nameOfTable = "booking_location", percentEnable = 0 }
+                , { nameOfTable = "ride", percentEnable = 0 }
+                , { nameOfTable = "fare_breakup", percentEnable = 0 }
+                , { nameOfTable = "directions_cache", percentEnable = 0 }
+                , { nameOfTable = "place_name_cache", percentEnable = 0 }
+                , { nameOfTable = "booking_cancellation_reason"
+                  , percentEnable = 0
+                  }
+                , { nameOfTable = "rental_slab", percentEnable = 0 }
+                , { nameOfTable = "special_request_zone", percentEnable = 0 }
+                , { nameOfTable = "saved_req_location", percentEnable = 0 }
+                , { nameOfTable = "trip_terms", percentEnable = 0 }
+                , { nameOfTable = "web_engage", percentEnable = 0 }
+                , { nameOfTable = "booking", percentEnable = 0 }
+                , { nameOfTable = "beckn_request", percentEnable = 0 }
+                ]
+              : List { nameOfTable : Text, percentEnable : Natural }
+          , enableKVForRead =
+                [ "search_request_location"
+                , "registration_token"
+                , "search_request"
+                , "person_flow_status"
+                , "estimate_breakup"
+                , "estimate_breakup"
+                , "estimate"
+                , "on_search_event"
+                , "driver_offer"
+                , "quote"
+                , "booking_location"
+                , "ride"
+                , "fare_breakup"
+                , "directions_cache"
+                , "place_name_cache"
+                , "booking_cancellation_reason"
+                , "rental_slab"
+                , "special_request_zone"
+                , "saved_req_location"
+                , "trip_terms"
+                , "booking"
+                , "web_engage"
+                , "beckn_request"
+                ]
+              : List Text
+          }
+    
+    in  { esqDBCfg
+        , esqDBReplicaCfg
+        , hedisCfg = hcfg
+        , hedisNonCriticalCfg = hcfg
+        , hedisNonCriticalClusterCfg = hccfg
+        , enableRedisLatencyLogging = False
+        , enablePrometheusMetricLogging = True
+        , hedisMigrationStage = False
+        , cutOffHedisCluster = True
+        , cutOffNonCriticalHedisCluster = True
+        , hedisClusterCfg = hccfg
+        , smsCfg = smsConfig
+        , infoBIPCfg = InfoBIPConfig
+        , webengageCfg = WebengageConfig
+        , port = +8013
+        , metricsPort = +9999
+        , hostName = "juspay.in"
+        , selfUIUrl = "https://api.sandbox.beckn.juspay.in/bap/v2/"
+        , nwAddress = "https://api.sandbox.beckn.juspay.in/bap/beckn"
+        , signingKey = sec.signingKey
+        , signatureExpiry = common.signatureExpiry
+        , searchRequestExpiry = Some +1800
+        , migrationPath = None Text
+        , autoMigrate = common.autoMigrate
+        , coreVersion = "0.9.4"
+        , loggerConfig =
+            common.loggerConfig // { logFilePath = "/tmp/rider-app.log" }
+        , googleTranslateUrl = common.googleTranslateUrl
+        , cacheFeedbackFormConfig
+        , googleTranslateKey = common.googleTranslateKey
+        , internalAPIKey = sec.internalAPIKey
+        , metricsSearchDurationTimeout = +45
+        , graceTerminationPeriod = +90
+        , apiRateLimitOptions
+        , searchRateLimitOptions
+        , slackCfg
+        , searchLimitExceedNotificationTemplate =
+            "Customer with {#cust-id#} is exceeding the search limit."
+        , httpClientOptions
+        , shortDurationRetryCfg
+        , longDurationRetryCfg
+        , authTokenCacheExpiry = +600
+        , disableSignatureAuth = False
+        , encTools
+        , kafkaProducerCfg
+        , rideCfg = rideConfig
+        , cacheConfig
+        , dashboardToken = sec.dashboardToken
+        , cacheTranslationConfig
+        , maxEmergencyNumberCount = +3
+        , minTripDistanceForReferralCfg = Some +1000
+        , eventStreamMap = eventStreamMappings
+        , tables
+        }
+  rider-dashboard.dhall: |
+    let common = ./common.dhall
+    
+    let sec = ./secrets/rider-dashboard.dhall
+    
+    let esqDBCfg =
+          { connectHost =
+              "beckn-test-integ-aurora.ctiuwghisbi9.ap-south-1.rds.amazonaws.com"
+          , connectPort = 5432
+          , connectUser = sec.dbUserId
+          , connectPassword = sec.dbPassword
+          , connectDatabase = "atlas_bap_dashboard"
+          , connectSchemaName = "atlas_bap_dashboard"
+          , connectionPoolCount = +25
+          }
+    
+    let esqDBReplicaCfg =
+          { connectHost = esqDBCfg.connectHost
+          , connectPort = esqDBCfg.connectPort
+          , connectUser = esqDBCfg.connectUser
+          , connectPassword = esqDBCfg.connectPassword
+          , connectDatabase = esqDBCfg.connectDatabase
+          , connectSchemaName = esqDBCfg.connectSchemaName
+          , connectionPoolCount = +25
+          }
+    
+    let rcfg =
+          { connectHost = "beckn-redis-001.zkt6uh.ng.0001.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = Some +100
+          }
+    
+    let rccfg =
+          { connectHost =
+              "beckn-cluster-redis-001.zkt6uh.clustercfg.aps1.cache.amazonaws.com"
+          , connectPort = 6379
+          , connectAuth = None Text
+          , connectDatabase = +2
+          , connectMaxConnections = +50
+          , connectMaxIdleTime = +30
+          , connectTimeout = None Integer
+          }
+    
+    let apiRateLimitOptions = { limit = +4, limitResetTimeInSec = +600 }
+    
+    let shareRideApiRateLimitOptions = { limit = +20, limitResetTimeInSec = +60 }
+    
+    let encTools = { service = common.passetto, hashSalt = sec.encHashSalt }
+    
+    let appBackend =
+          { name = common.ServerName.APP_BACKEND
+          , url = "http://beckn-app-backend-dashboard-internal-sandbox.atlas:8013/"
+          , token = sec.appBackendToken
+          }
+    
+    in  { esqDBCfg
+        , esqDBReplicaCfg
+        , hedisCfg = rcfg
+        , hedisNonCriticalCfg = rcfg
+        , hedisNonCriticalClusterCfg = rccfg
+        , enableRedisLatencyLogging = False
+        , enablePrometheusMetricLogging = True
+        , hedisMigrationStage = False
+        , cutOffHedisCluster = True
+        , hedisClusterCfg = rccfg
+        , port = +8017
+        , migrationPath = None Text
+        , autoMigrate = common.autoMigrate
+        , loggerConfig =
+            common.loggerConfig // { logFilePath = "/tmp/rider-dashboard.log" }
+        , graceTerminationPeriod = +90
+        , apiRateLimitOptions
+        , shareRideApiRateLimitOptions
+        , httpClientOptions = common.httpClientOptions
+        , shortDurationRetryCfg = common.shortDurationRetryCfg
+        , longDurationRetryCfg = common.longDurationRetryCfg
+        , authTokenCacheExpiry = +600
+        , registrationTokenExpiry = +365
+        , encTools
+        , exotelToken = sec.exotelToken
+        , dataServers = [ appBackend ]
+        }

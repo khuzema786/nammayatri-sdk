@@ -1,0 +1,156 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2023-09-05T16:03:10Z"
+  generation: 1
+  name: beckn-location-tracking-service-sandbox-36cdf5
+  namespace: atlas
+  resourceVersion: "764821147"
+  uid: a085bc26-bd35-4ecd-bc8b-b7e7a5a5d763
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: beckn-location-tracking-service-sandbox
+      version: 36cdf5
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-08-31T20:41:51+05:30"
+      creationTimestamp: null
+      labels:
+        app: beckn-location-tracking-service-sandbox
+        version: 36cdf5
+    spec:
+      containers:
+      - args:
+        - |
+          mkdir -p /etc/beckn/geojson && cp -HR /tmp/geojson/* /etc/beckn/geojson/. && mkdir -p /etc/beckn/config && (echo $DHALL_CONFIG_ENCODED | base64 -d > $DHALL_CONFIG) && echo "starting app server" && /bin/location_tracking_service
+        command:
+        - /bin/bash
+        - -c
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: DEPLOYMENT_VERSION
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['version']
+        - name: DHALL_CONFIG
+          value: /etc/beckn/config/location-tracking-service.dhall
+        - name: GEO_CONFIG
+          value: /etc/beckn/geojson
+        - name: RUST_BACKTRACE
+          value: full
+        - name: DHALL_CONFIG_ENCODED
+          value: bGV0IG5vbl9wZXJzaXN0ZW50X3JlZGlzX2NmZyA9IHsKICAgIHJlZGlzX2hvc3QgPSAiYmVja24tcmVkaXMtMDAxLnprdDZ1aC5uZy4wMDAxLmFwczEuY2FjaGUuYW1hem9uYXdzLmNvbSIsCiAgICByZWRpc19wb3J0ID0gNjM3OSwKICAgIHJlZGlzX3Bvb2xfc2l6ZSA9IDEwLAogICAgcmVkaXNfcGFydGl0aW9uID0gMCwKfQoKbGV0IHBlcnNpc3RlbnRfcmVkaXNfY2ZnID0gewogICAgcmVkaXNfaG9zdCA9ICJiZWNrbi1yZWRpcy0wMDEuemt0NnVoLm5nLjAwMDEuYXBzMS5jYWNoZS5hbWF6b25hd3MuY29tIiwKICAgIHJlZGlzX3BvcnQgPSA2Mzc5LAogICAgcmVkaXNfcG9vbF9zaXplID0gMTAsCiAgICByZWRpc19wYXJ0aXRpb24gPSAwLAp9CgpsZXQga2Fma2FDZmcgPSB7CiAgICBrYWZrYV9rZXkgPSAiYm9vdHN0cmFwLnNlcnZlcnMiLAogICAga2Fma2FfaG9zdCA9ICJrYWZrYS0wLmthZmthLnN2Yy5jbHVzdGVyLmxvY2FsOjkwOTIiCn0KCmluIHsKICAgIG5vbl9wZXJzaXN0ZW50X3JlZGlzX2NmZywKICAgIHBlcnNpc3RlbnRfcmVkaXNfY2ZnLAogICAgZHJhaW5lcl9kZWxheSA9IDEwLAogICAga2Fma2FfY2ZnID0ga2Fma2FDZmcsCiAgICBwb3J0ID0gODAxNiwKICAgIGF1dGhfdXJsID0gImh0dHA6Ly9iZWNrbi1kcml2ZXItb2ZmZXItYnBwLXNhbmRib3guYXRsYXM6ODAxNi9pbnRlcm5hbC9hdXRoIiwKICAgIGF1dGhfYXBpX2tleSA9ICJhZTI4ODQ2Ni0yYWRkLTExZWUtYmU1Ni0wMjQyYWMxMjAwMDIiLAogICAgYnVsa19sb2NhdGlvbl9jYWxsYmFja191cmwgPSAiaHR0cDovL2JlY2tuLWRyaXZlci1vZmZlci1icHAtc2FuZGJveC5hdGxhczo4MDE2L2ludGVybmFsL2J1bGtMb2NVcGRhdGUiLAogICAgYXV0aF90b2tlbl9leHBpcnkgPSA4NjQwMCwKICAgIG1pbl9sb2NhdGlvbl9hY2N1cmFjeSA9IDUwLAogICAgcmVkaXNfZXhwaXJ5ID0gODY0MDAsCiAgICBsYXN0X2xvY2F0aW9uX3RpbXN0YW1wX2V4cGlyeSA9IDg2NDAwLAogICAgbG9jYXRpb25fdXBkYXRlX2xpbWl0ID0gMTAsCiAgICBsb2NhdGlvbl91cGRhdGVfaW50ZXJ2YWwgPSA2MCwKICAgIGRyaXZlcl9sb2NhdGlvbl91cGRhdGVfdG9waWMgPSAibG9jYXRpb24tdXBkYXRlcyIsCiAgICBkcml2ZXJfbG9jYXRpb25fdXBkYXRlX2tleSA9ICJsb2MiLAogICAgYmF0Y2hfc2l6ZSA9IDEwMCwKICAgIGJ1Y2tldF9zaXplID0gNjAwLAogICAgbmVhcmJ5X2J1Y2tldF90aHJlc2hvbGQgPSAxLAp9
+        image: ghcr.io/nammayatri/location-tracking-service:bf9373
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 8016
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 12
+        name: beckn-location-tracking-service-sandbox
+        ports:
+        - containerPort: 8016
+          name: http-app
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /healthcheck
+            port: 8016
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 12
+          successThreshold: 1
+          timeoutSeconds: 10
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp/geojson
+          name: geojson
+          readOnly: true
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "1"
+        - name: single-request-reopen
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 1337
+      terminationGracePeriodSeconds: 90
+      volumes:
+      - name: fcm-key
+        secret:
+          defaultMode: 420
+          secretName: beckn-ny-fcm-key
+      - configMap:
+          defaultMode: 420
+          name: istio-ca-root-cert
+        name: istiod-ca-cert
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: karnataka.json
+            path: karnataka.json
+          - key: kerala.json
+            path: kerala.json
+          - key: kolkata.json
+            path: kolkata.json
+          name: location-tracking-service-geojson
+        name: geojson
+status:
+  availableReplicas: 2
+  conditions:
+  - lastTransitionTime: "2023-09-05T16:03:10Z"
+    lastUpdateTime: "2023-09-05T16:08:38Z"
+    message: ReplicaSet "beckn-location-tracking-service-sandbox-36cdf5-698cb588df"
+      has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2023-09-05T22:43:14Z"
+    lastUpdateTime: "2023-09-05T22:43:14Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 1
+  readyReplicas: 2
+  replicas: 2
+  updatedReplicas: 2
