@@ -1,0 +1,151 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beckn-location-tracking-service-master-60f74c
+  namespace: atlas
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: beckn-location-tracking-service-master
+      version: 60f74c
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2023-09-07T16:36:44+05:30"
+      creationTimestamp: null
+      labels:
+        app: beckn-location-tracking-service-master
+        version: 60f74c
+    spec:
+      containers:
+      - args:
+        - |
+          mkdir -p /etc/beckn/geojson && cp -HR /tmp/geojson/* /etc/beckn/geojson/. && mkdir -p /etc/beckn/config && (echo $DHALL_CONFIG_ENCODED | base64 -d > $DHALL_CONFIG) && echo "starting app server" && /bin/location_tracking_service
+        command:
+        - /bin/bash
+        - -c
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: DEPLOYMENT_VERSION
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels['version']
+        - name: DHALL_CONFIG
+          value: /etc/beckn/config/location-tracking-service.dhall
+        - name: GEO_CONFIG
+          value: /etc/beckn/geojson
+        - name: RUST_BACKTRACE
+          value: full
+        - name: DHALL_CONFIG_ENCODED
+          value: bGV0IG5vbl9wZXJzaXN0ZW50X3JlZGlzX2NmZyA9IHsKICAgIHJlZGlzX2hvc3QgPSAiYmVja24tcmVkaXMtMDAxLnprdDZ1aC5uZy4wMDAxLmFwczEuY2FjaGUuYW1hem9uYXdzLmNvbSIsCiAgICByZWRpc19wb3J0ID0gNjM3OSwKICAgIHJlZGlzX3Bvb2xfc2l6ZSA9IDI1MCwKICAgIHJlZGlzX3BhcnRpdGlvbiA9IDEsCiAgICByZWNvbm5lY3RfbWF4X2F0dGVtcHRzID0gMTAsCiAgICByZWNvbm5lY3RfZGVsYXkgPSA1MDAwLAogICAgZGVmYXVsdF90dGwgPSAzNjAwLAogICAgZGVmYXVsdF9oYXNoX3R0bCA9IDM2MDAsCiAgICBzdHJlYW1fcmVhZF9jb3VudCA9IDEwMCwKfQoKbGV0IHBlcnNpc3RlbnRfcmVkaXNfY2ZnID0gewogICAgcmVkaXNfaG9zdCA9ICJiZWNrbi1yZWRpcy0wMDEuemt0NnVoLm5nLjAwMDEuYXBzMS5jYWNoZS5hbWF6b25hd3MuY29tIiwKICAgIHJlZGlzX3BvcnQgPSA2Mzc5LAogICAgcmVkaXNfcG9vbF9zaXplID0gMjUwLAogICAgcmVkaXNfcGFydGl0aW9uID0gMSwKICAgIHJlY29ubmVjdF9tYXhfYXR0ZW1wdHMgPSAxMCwKICAgIHJlY29ubmVjdF9kZWxheSA9IDUwMDAsCiAgICBkZWZhdWx0X3R0bCA9IDM2MDAsCiAgICBkZWZhdWx0X2hhc2hfdHRsID0gMzYwMCwKICAgIHN0cmVhbV9yZWFkX2NvdW50ID0gMTAwLAp9CgpsZXQga2Fma2FDZmcgPSB7CiAgICBrYWZrYV9rZXkgPSAiYm9vdHN0cmFwLnNlcnZlcnMiLAogICAga2Fma2FfaG9zdCA9ICJrYWZrYS0wLmthZmthLnN2Yy5jbHVzdGVyLmxvY2FsOjkwOTIiCn0KCmxldCBMb2dMZXZlbCA9IDwgVFJBQ0UgfCBERUJVRyB8IElORk8gfCBXQVJOIHwgRVJST1IgfCBPRkYgPgoKbGV0IGxvZ2dlcl9jZmcgPSB7CiAgICBsZXZlbCA9IExvZ0xldmVsLlRSQUNFLAogICAgbG9nX3RvX2ZpbGUgPSBGYWxzZQp9CgppbiB7CiAgICBsb2dnZXJfY2ZnLAogICAgbm9uX3BlcnNpc3RlbnRfcmVkaXNfY2ZnLAogICAgcGVyc2lzdGVudF9yZWRpc19jZmcsCiAgICBkcmFpbmVyX3NpemUgPSAxMDAwMCwKICAgIGRyYWluZXJfZGVsYXkgPSAxMCwKICAgIGthZmthX2NmZyA9IGthZmthQ2ZnLAogICAgcG9ydCA9IDgwMTYsCiAgICBhdXRoX3VybCA9ICJodHRwOi8vYmVja24tZHJpdmVyLW9mZmVyLWJwcC1tYXN0ZXIuYXRsYXM6ODAxNi9pbnRlcm5hbC9hdXRoIiwKICAgIGF1dGhfYXBpX2tleSA9ICJhZTI4ODQ2Ni0yYWRkLTExZWUtYmU1Ni0wMjQyYWMxMjAwMDIiLAogICAgYnVsa19sb2NhdGlvbl9jYWxsYmFja191cmwgPSAiaHR0cDovL2JlY2tuLWRyaXZlci1vZmZlci1icHAtbWFzdGVyLmF0bGFzOjgwMTYvaW50ZXJuYWwvYnVsa0xvY1VwZGF0ZSIsCiAgICBhdXRoX3Rva2VuX2V4cGlyeSA9IDg2NDAwLAogICAgbWluX2xvY2F0aW9uX2FjY3VyYWN5ID0gNTAsCiAgICByZWRpc19leHBpcnkgPSA4NjQwMCwKICAgIGxhc3RfbG9jYXRpb25fdGltc3RhbXBfZXhwaXJ5ID0gODY0MDAsCiAgICBsb2NhdGlvbl91cGRhdGVfbGltaXQgPSAxMCwKICAgIGxvY2F0aW9uX3VwZGF0ZV9pbnRlcnZhbCA9IDYwLAogICAgZHJpdmVyX2xvY2F0aW9uX3VwZGF0ZV90b3BpYyA9ICJsb2NhdGlvbi11cGRhdGVzIiwKICAgIGRyaXZlcl9sb2NhdGlvbl91cGRhdGVfa2V5ID0gImxvYyIsCiAgICBiYXRjaF9zaXplID0gMTAwLAogICAgYnVja2V0X3NpemUgPSAzMCwKICAgIG5lYXJieV9idWNrZXRfdGhyZXNob2xkID0gNCwKfQ==
+        image: ghcr.io/nammayatri/location-tracking-service:60f74c
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 8016
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 20
+          successThreshold: 1
+          timeoutSeconds: 12
+        name: beckn-location-tracking-service-master
+        ports:
+        - containerPort: 8016
+          name: http-app
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /healthcheck
+            port: 8016
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 12
+          successThreshold: 1
+          timeoutSeconds: 10
+        resources:
+          requests:
+            cpu: "1"
+            memory: 1Gi
+        securityContext:
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /tmp/geojson
+          name: geojson
+          readOnly: true
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "1"
+        - name: single-request-reopen
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 1337
+      terminationGracePeriodSeconds: 90
+      volumes:
+      - name: fcm-key
+        secret:
+          defaultMode: 420
+          secretName: beckn-ny-fcm-key
+      - configMap:
+          defaultMode: 420
+          name: istio-ca-root-cert
+        name: istiod-ca-cert
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: karnataka.json
+            path: karnataka.json
+          - key: kerala.json
+            path: kerala.json
+          - key: kolkata.json
+            path: kolkata.json
+          name: location-tracking-service-geojson
+        name: geojson
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: beckn-location-tracking-service-master
+  name: beckn-location-tracking-service-master
+  namespace: atlas
+spec:
+  ports:
+  - name: http-app
+    port: 8016
+    protocol: TCP
+    targetPort: 8016
+  - name: http-prom
+    port: 9999
+    protocol: TCP
+    targetPort: 8016
+  selector:
+    app: beckn-location-tracking-service-master
+status:
+  loadBalancer: {}
+

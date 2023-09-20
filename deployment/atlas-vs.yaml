@@ -1,0 +1,933 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: atlas-vs
+  namespace: atlas
+spec:
+  gateways:
+  - atlas-internal
+  hosts:
+  - api.sandbox.beckn.juspay.in
+  http:
+  - match:
+    - uri:
+        prefix: /osrm/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-osrm
+        port:
+          number: 80
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /k6/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: k6-loadtest-script-nodeserver
+        port:
+          number: 3500
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /faceApi/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: python-face-apis
+        port:
+          number: 5000
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /map/otp/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: otp-api
+        port:
+          number: 8080
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /otp/
+    route:
+    - destination:
+        host: otp-api
+        port:
+          number: 8080
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /map/grphr/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: graphhopper
+        port:
+          number: 8989
+    timeout: 1200s
+  - match:
+    - uri:
+        prefix: /maps/
+    - uri:
+        prefix: /info
+    - uri:
+        prefix: /i18n/
+    - uri:
+        prefix: /route
+    route:
+    - destination:
+        host: graphhopper
+        port:
+          number: 8989
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /app/support/
+    - uri:
+        prefix: /app/support
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-customer-support-sandbox
+        port:
+          number: 3000
+        subset: 6f4f63d
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /pilot/bap/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-backend-sandbox-pilot
+        port:
+          number: 8013
+        subset: a7205dv2
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /pilot/app/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-backend-sandbox-pilot
+        port:
+          number: 8013
+        subset: a7205dv2
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /bap/beckn/
+    rewrite:
+      uri: /beckn/cab/v1/
+    route:
+    - destination:
+        host: beckn-app-backend-sandbox
+        port:
+          number: 8013
+        subset: "660e05"
+      weight: 100
+  - match:
+    - uri:
+        prefix: /bap/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-backend-sandbox
+        port:
+          number: 8013
+        subset: "660e05"
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /app/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-backend-sandbox
+        port:
+          number: 8013
+        subset: "660e05"
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /bpp/cab/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-transport-sandbox
+        port:
+          number: 8014
+        subset: 4e4d223acv2
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /transport/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-transport-sandbox
+        port:
+          number: 8014
+        subset: 4e4d223acv2
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /gateway/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-gateway-sandbox
+        port:
+          number: 8015
+        subset: 5e1839
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/app/support
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-customer-support-master
+        port:
+          number: 3000
+    timeout: 40s
+  - match:
+    - uri:
+        regex: /subscribe
+    route:
+    - destination:
+        host: beckn-subscriber
+        port:
+          number: 5000
+      weight: 100
+  - match:
+    - uri:
+        regex: /dev/bap/beckn/cab/v1/.*/subscribe/on_subscribe
+    rewrite:
+      uri: /subscribe/on_subscribe
+    route:
+    - destination:
+        host: beckn-subscriber
+        port:
+          number: 5000
+      weight: 100
+  - match:
+    - uri:
+        regex: /dev/dobpp/beckn/.*/subscribe/on_subscribe
+    rewrite:
+      uri: /subscribe/on_subscribe
+    route:
+    - destination:
+        host: beckn-subscriber
+        port:
+          number: 5000
+      weight: 100
+  - match:
+    - uri:
+        regex: /dev/bap/beckn/cab/v1/.*/ondc-site-verification.html
+    route:
+    - destination:
+        host: beckn-subscriber
+        port:
+          number: 9000
+      weight: 100
+  - match:
+    - uri:
+        regex: /dev/dobpp/beckn/.*/ondc-site-verification.html
+    route:
+    - destination:
+        host: beckn-subscriber
+        port:
+          number: 9000
+      weight: 100
+  - match:
+    - uri:
+        prefix: /dev/bap/beckn/
+    rewrite:
+      uri: /beckn/cab/v1/
+    route:
+    - destination:
+        host: beckn-app-backend-master
+        port:
+          number: 8013
+        subset: 6e62c9
+      weight: 100
+  - match:
+    - uri:
+        prefix: /dev/app/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-backend-master
+        port:
+          number: 8013
+        subset: 6e62c9
+      weight: 100
+  - match:
+    - uri:
+        prefix: /dev/bap/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-app-backend-master
+        port:
+          number: 8013
+        subset: 6e62c9
+      weight: 100
+  - match:
+    - uri:
+        prefix: /dev/transport/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-transport-master
+        port:
+          number: 8014
+        subset: c0ea60
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/bpp/cab/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-transport-master
+        port:
+          number: 8014
+        subset: c0ea60
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/driver/location
+    rewrite:
+      uri: /ui/driver/location
+    route:
+    - destination:
+        host: beckn-location-tracking-service-master
+        port:
+          number: 8016
+        subset: 60f74c
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/driver/otpRide
+    rewrite:
+      uri: /ui/driver/otpRide
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/driver/ride
+    rewrite:
+      uri: /ui/driver/ride
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/exotel
+    rewrite:
+      uri: /ui/exotel
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/cancellationReason
+    rewrite:
+      uri: /ui/cancellationReason
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/onMessage
+    rewrite:
+      uri: /ui/onMessage
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/auth
+    rewrite:
+      uri: /ui/auth
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/driver/setActivity
+    rewrite:
+      uri: /ui/driver/setActivity
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/ui/driver/profile
+    rewrite:
+      uri: /ui/driver/profile
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/init
+    rewrite:
+      uri: /beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/init
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/confirm
+    rewrite:
+      uri: /beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/confirm
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/track
+    rewrite:
+      uri: /beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/track
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/rating
+    rewrite:
+      uri: /beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/rating
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/cancel
+    rewrite:
+      uri: /beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f/cancel
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/init
+    rewrite:
+      uri: /beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/init
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/confirm
+    rewrite:
+      uri: /beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/confirm
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/track
+    rewrite:
+      uri: /beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/track
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/rating
+    rewrite:
+      uri: /beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/rating
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/cancel
+    rewrite:
+      uri: /beckn/96dd7f78-787e-4a0b-8675-e9e6fe93bb8f/cancel
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/init
+    rewrite:
+      uri: /beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/init
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/confirm
+    rewrite:
+      uri: /beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/confirm
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/track
+    rewrite:
+      uri: /beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/track
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/rating
+    rewrite:
+      uri: /beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/rating
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/cancel
+    rewrite:
+      uri: /beckn/2e8eac28-9854-4f5d-aea6-a2f6502cfe37/cancel
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-critical-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/dobpp/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-master
+        port:
+          number: 8016
+        subset: 6e62c9
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /loc-tracking/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-location-tracking-service-sandbox
+        port:
+          number: 8016
+        subset: c7e5b7
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dobpp/ui/driver/location
+    rewrite:
+      uri: /ui/driver/location
+    route:
+    - destination:
+        host: beckn-location-tracking-service-sandbox
+        port:
+          number: 8016
+        subset: c7e5b7
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dobpp/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-driver-offer-bpp-sandbox
+        port:
+          number: 8016
+        subset: "660e05"
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/bpp/metro/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-kmrl-master
+        port:
+          number: 8000
+        subset: abcd3e
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/gateway/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-gateway-master
+        port:
+          number: 8015
+        subset: c66aa6
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /dev/registry/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-mock-registry-master
+        port:
+          number: 8020
+        subset: c66aa6
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /registry/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-mock-registry-sandbox
+        port:
+          number: 8020
+        subset: 5e1839
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /loadtest/bap/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-load-test-bap
+        port:
+          number: 5000
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /loadtest/bpp/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: beckn-load-test-bpp
+        port:
+          number: 5001
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /loadtest/grafana/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: k6-monitoring
+        port:
+          number: 3000
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /loadtest/prom/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: k6-monitoring
+        port:
+          number: 9090
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bap/user/
+    rewrite:
+      uri: /user/
+    route:
+    - destination:
+        host: beckn-rider-dashboard-sandbox
+        port:
+          number: 8017
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bap/swagger
+    rewrite:
+      uri: /swagger
+    route:
+    - destination:
+        host: beckn-rider-dashboard-sandbox
+        port:
+          number: 8017
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bap/openapi
+    rewrite:
+      uri: /openapi
+    route:
+    - destination:
+        host: beckn-rider-dashboard-sandbox
+        port:
+          number: 8017
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bap/admin/
+    rewrite:
+      uri: /admin/
+    route:
+    - destination:
+        host: beckn-rider-dashboard-sandbox
+        port:
+          number: 8017
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bap/
+    rewrite:
+      uri: /bap/
+    route:
+    - destination:
+        host: beckn-rider-dashboard-sandbox
+        port:
+          number: 8017
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bpp/user/
+    rewrite:
+      uri: /user/
+    route:
+    - destination:
+        host: beckn-provider-dashboard-sandbox
+        port:
+          number: 8018
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bpp/swagger
+    rewrite:
+      uri: /swagger
+    route:
+    - destination:
+        host: beckn-provider-dashboard-sandbox
+        port:
+          number: 8018
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bpp/openapi
+    rewrite:
+      uri: /openapi
+    route:
+    - destination:
+        host: beckn-provider-dashboard-sandbox
+        port:
+          number: 8018
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bpp/admin/
+    rewrite:
+      uri: /admin/
+    route:
+    - destination:
+        host: beckn-provider-dashboard-sandbox
+        port:
+          number: 8018
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/bpp/
+    rewrite:
+      uri: /bpp/
+    route:
+    - destination:
+        host: beckn-provider-dashboard-sandbox
+        port:
+          number: 8018
+        subset: 325b23
+      weight: 100
+    timeout: 40s
+  - match:
+    - uri:
+        prefix: /api/exotel/
+    rewrite:
+      uri: /exotel/
+    route:
+    - destination:
+        host: beckn-provider-dashboard-sandbox
+        port:
+          number: 8018
+        subset: 325b23
+      weight: 100
+    timeout: 40s
