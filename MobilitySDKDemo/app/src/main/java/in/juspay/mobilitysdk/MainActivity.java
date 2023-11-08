@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             initiatePayload.put("service", key);
             innerPayload.put("clientId", "<client_id>");
             innerPayload.put("merchantId", "<client_id>");
-            innerPayload.put("action", "initiate");
+            innerPayload.put("action", "process");
             innerPayload.put("service", key);
             innerPayload.put(PaymentConstants.ENV, "production");
             signatureAuthData.put("signature", signature);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         return initiatePayload;
     }
     // block:end:create-process-payload
-    
+
     // block:start:create-notification-payload
     private JSONObject getNotificationProcessPayload() {
         JSONObject innerPayload = new JSONObject();
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             processPayload.put("service", key);
             innerPayload.put("clientId", "<client_id>");
             innerPayload.put("merchantId", "<client_id>");
-            innerPayload.put("action", "initiate");
+            innerPayload.put("action", "process");
             innerPayload.put("service", key);
             innerPayload.put(PaymentConstants.ENV, "production");
             processPayload.put("action", "notification");
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             processPayload.put("service", key);
             innerPayload.put("clientId", "<client_id>");
             innerPayload.put("merchantId", "<client_id>");
-            innerPayload.put("action", "initiate");
+            innerPayload.put("action", "process");
             innerPayload.put("service", key);
             innerPayload.put("view_param", "<deeplink_key>");
             innerPayload.put(PaymentConstants.ENV, "production");
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
             processPayload.put("service", key);
             innerPayload.put("clientId", "<client_id>");
             innerPayload.put("merchantId", "<client_id>");
-            innerPayload.put("action", "initiate");
+            innerPayload.put("action", "process");
             innerPayload.put("service", key);
             innerPayload.put("search_type","direct_search");
             JSONObject source = new JSONObject();
