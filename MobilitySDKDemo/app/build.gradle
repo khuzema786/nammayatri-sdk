@@ -1,5 +1,8 @@
 plugins {
     id 'com.android.application'
+    //block:start:add-sdk-plugin
+    id 'hypersdk.plugin'
+    //block:end:add-sdk-plugin
 }
 
 android {
@@ -35,8 +38,15 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    //block:start:add-sdk-plugin-implementation
-    implementation 'in.juspay:mobilitycustomer:2.1.13-nammayatri.13'
-    implementation 'in.juspay:hypersdk:2.1.13-nammayatri.13'
-    //block:end:add-sdk-plugin-implementation
+    //block:start:add-customer-implementation
+    implementation 'in.juspay:mobilitycustomer:2.1.13-nammayatri.23'
+    //block:end:add-customer-implementation
 }
+
+
+//block:start:add-sdk-plugin-implementation
+hyperSdkPlugin {
+    clientId = "<CLIENT_ID>"
+    sdkVersion = "2.1.13-nammayatri.23"
+}
+//block:end:add-sdk-plugin-implementation

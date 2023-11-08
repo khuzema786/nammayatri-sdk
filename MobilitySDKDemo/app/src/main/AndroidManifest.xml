@@ -13,6 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobilitySDKDemo"
         tools:targetApi="31">
+    // block:start:file_provider
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    // block:end:file_provider
+
+    // block:start:maps_key
+        <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="<MAPS_KEY>" />
+    // block:end:maps_key
         <activity
             android:name=".MainActivity"
             android:exported="true">
