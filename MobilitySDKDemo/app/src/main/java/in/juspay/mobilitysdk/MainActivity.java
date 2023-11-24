@@ -203,6 +203,10 @@ public class MainActivity extends AppCompatActivity {
             innerPayload.put("action", "process");
             innerPayload.put("service", key);
             innerPayload.put("view_param", "<deeplink_key>");
+            JSONObject deeplinkOptions = new JSONObject();
+            deeplinkOptions.put("parent_view",true);
+            deeplinkOptions.put("show_title",false);
+            innerPayload.put("deeplinkOptions", deeplinkOptions);
             innerPayload.put(PaymentConstants.ENV, "production");
             processPayload.put(PaymentConstants.PAYLOAD, innerPayload);
         } catch (JSONException e) {
