@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         // block:start:call-prefetch
+        HyperServices.preFetch(this,getInitiatePayload());
+         // block:end:call-prefetch
         initMobilitySDK();
     }
 
